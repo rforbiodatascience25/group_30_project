@@ -1,0 +1,17 @@
+---
+title: "01_load"
+format: html
+---
+
+```{r}
+library(readr)
+#library(dplyr)
+```
+
+```{r}
+raw_data <- read_csv("_raw/SAA_Biospecimen_Analysis_results_01nov2025.csv")
+```
+
+```{r}
+write_tsv(raw_data, "data/amprion_data.tsv")
+```

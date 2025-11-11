@@ -19,7 +19,13 @@ head(raw_data)
 ```
 
 ```{r}
-ggplot(raw_data, aes(x = SEX, fill = SEX)) +
+
+amprion_data <- raw_data %>%
+  filter(SAAMethod == "Amprion-24h alpha-synuclein-SAA")
+```
+
+```{r}
+ggplot(amprion_data, aes(x = SEX, fill = SEX)) +
   geom_bar() +
   labs(title = "Cohort Composition",
        x = "SEX",
@@ -29,7 +35,7 @@ ggplot(raw_data, aes(x = SEX, fill = SEX)) +
 ```
 
 ```{r}
-ggplot(raw_data, aes(x = CLINICAL_EVENT, fill = CLINICAL_EVENT)) +
+ggplot(amprion_data, aes(x = CLINICAL_EVENT, fill = CLINICAL_EVENT)) +
   geom_bar() +
   labs(title = "CLINICAL_EVENT",
        x = "CLINICAL_EVENT",
@@ -51,7 +57,7 @@ ggplot(raw_data, aes(x = SAAMethod, fill = SAAMethod)) +
 ```
 
 ```{r}
-ggplot(raw_data, aes(x = SAA_Status, fill = SAA_Status)) +
+ggplot(amprion_data, aes(x = SAA_Status, fill = SAA_Status)) +
   geom_bar() +
   labs(title = "SAA_Status",
        x = "SAA_Status",
