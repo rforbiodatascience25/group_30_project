@@ -9,13 +9,21 @@ library(readr)
 library(dplyr)
 ```
 
-load the raw data
+# Loading the raw data
 
-```{r}
+```{r}C}
 raw_data <- read_tsv("../data/01_dat_load.tsv")
 ```
 
-clean it
+# Clean the data
+
+## Deleting columns
+
+There is some columns that aren't relevant for us, such as the name of the institution and *PI?* . Some of the columns have the same value through the whole dataset, such as TYPE (rygmarvsprøve) and SAAMethod.
+
+There is also some columns that are only measured in one of the projects, and not both. We also want to delete those. SAA_Type, TSmax, T50.
+
+Also there are some columns that almost has no measurements, that is the sample volume.
 
 ```{r}
 tidy_data <- raw_data |>
@@ -30,6 +38,10 @@ tidy_data <- raw_data |>
          -starts_with("T50"),
          -starts_with("Sample"))
 ```
+
+## titel ift at data skrives længere
+
+we want the fmax ttt and auc to have three columns instead of having 6 columns.
 
 ```{r}
 tidy_data <- tidy_data |> 
@@ -46,6 +58,8 @@ tidy_data <- tidy_data |>
   )
 ```
 
+## checking the instrument
+
 ```{r}
 all(tidy_data$InstrumentRep1 == tidy_data$InstrumentRep2 & tidy_data$InstrumentRep2 == tidy_data$InstrumentRep3)
 
@@ -57,7 +71,54 @@ tidy_data <- tidy_data |>
   rename(instrument = InstrumentRep1)
 ```
 
-Save the cleaned data
+## renaming
+
+```{r}
+tidy_data <- tidy_data |>
+  rename(
+    patient_number = PATNO,
+    sex = SEX,
+    project = PROJECTID,
+    clinical_event = CLINICAL_EVENT,
+    saa_result = SAA_Status,
+    rundate = RUNDATE,
+    fmax = Fmax,
+    ttt = TTT,
+    auc = AUC)
+```
+
+## laver til anden type
+
+```{r}
+tidy_data <- tidy_data |>
+  mutate(across(c(project, 
+                  duration, 
+                  rep, 
+                  instrument), 
+                
+                as.character))
+
+```
+
+## relocating
+
+```{r}
+tidy_data <- tidy_data |>
+	relocate(project)
+
+tidy_data <- tidy_data |>
+	relocate(duration:auc, .after = saa_result)
+
+```
+
+## Arrange
+
+```{r}
+tidy_data <- tidy_data |>
+  arrange(patient_number, saa_result)
+```
+
+# Save the cleaned data
 
 ```{r}
 write_tsv(tidy_data, "../data/02_dat_clean.tsv")
