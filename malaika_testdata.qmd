@@ -1,0 +1,453 @@
+---
+title: "malaika_testdata"
+format: html
+---
+
+```{r}
+#| label: start
+library("tidyverse")
+```
+
+Import data:
+
+```{r}
+SAA_data <- read_csv("data/SAA_Biospecimen_Analysis_Results_01Nov2025.csv")
+```
+
+# Ændre data
+
+## Projekt opdel
+
+```{r}
+
+SAA_clean <- SAA_data |> 
+    mutate(
+    Fmax_Rep1 = if_else(PROJECTID == 237, Fmax_24h_Rep1, Fmax_150h_Rep1),
+    Fmax_Rep2 = if_else(PROJECTID == 237, Fmax_24h_Rep2, Fmax_150h_Rep2),
+    Fmax_Rep3 = if_else(PROJECTID == 237, Fmax_24h_Rep3, Fmax_150h_Rep3),
+    TTT_Rep1 = if_else(PROJECTID == 237, TTT_24h_Rep1, TTT_150h_Rep1),
+    TTT_Rep2 = if_else(PROJECTID == 237, TTT_24h_Rep2, TTT_150h_Rep2),
+    TTT_Rep3 = if_else(PROJECTID == 237, TTT_24h_Rep1, TTT_150h_Rep3),
+    AUC_Rep1 = if_else(PROJECTID == 237, AUC_24h_Rep1, AUC_150h_Rep1),
+    AUC_Rep2 = if_else(PROJECTID == 237, AUC_24h_Rep2, AUC_150h_Rep2),
+    AUC_Rep3 = if_else(PROJECTID == 237, AUC_24h_Rep1, AUC_150h_Rep3),
+    .after = Fmax_24h_Rep1
+    ) |> 
+  
+  select(-starts_with("Fmax_24"), 
+         -starts_with("Fmax_150"), 
+         -starts_with("TTT_150"), 
+         -starts_with("TTT_24"),
+         -starts_with("AUC_150"),
+         -starts_with("AUC_24"))
+
+
+SAA_clean <- SAA_clean |> 
+    mutate(Hours = case_when(
+             PROJECTID == 155 ~ "150h",
+             PROJECTID == 237 ~ "24h"), .after = PROJECTID
+           )
+```
+
+## mean
+
+```{r}
+SAA_clean <- SAA_clean |> 
+    mutate(Fmax_mean = (Fmax_Rep1 + Fmax_Rep2 + Fmax_Rep3)/3,
+           TTT_mean = (TTT_Rep1 + TTT_Rep2 + TTT_Rep3)/3,
+           AUC_mean = (AUC_Rep1 + AUC_Rep2 + AUC_Rep3)/3, .before = Fmax_Rep1)
+```
+
+## Navne
+
+```{r}
+SAA_clean <- SAA_clean |> 
+    mutate(Project_ID = as.character(PROJECTID), .before = 1) |>
+  select(-PROJECTID)
+
+SAA_clean <- SAA_clean |>
+  rename(SAA_Method = SAAMethod,
+         Patient_Number = PATNO,
+         Sex = SEX,
+         Cohort = COHORT,
+         Clinical_Event = CLINICAL_EVENT,
+         Type = TYPE,
+         Run_Date = RUNDATE)
+```
+
+## SAA_Type
+
+```{r}
+SAA_clean <- SAA_clean |> 
+  rowwise() |> 
+  mutate(
+    n_high = if (Project_ID == "155") 
+      sum(c_across(starts_with("Fmax")) >= 5000, na.rm = TRUE) 
+      else NA_integer_,
+    
+    n_low = if (Project_ID == "155") 
+      sum(c_across(starts_with("Fmax")) < 5000, na.rm = TRUE) 
+      else NA_integer_,
+    
+    SAA_Type = case_when(
+      Project_ID != "155" ~ SAA_Type,                         
+      SAA_Status != "Positive" ~ NA_character_,            
+      n_high == 4 ~ "Type 1",                    
+      n_high == 3 ~ "Undetermined",                        
+      n_high <= 2 & n_low >= 1 ~ "Type 2",                  
+      TRUE ~ NA_character_
+    )
+  ) |>
+  select(-n_high, -n_low) |>
+  ungroup()
+
+```
+
+## Andet
+
+```{r}
+SAA_clean <- SAA_clean |>
+  arrange(Patient_Number, Clinical_Event)
+
+```
+
+```{r}
+SAA_clean <- SAA_clean |>
+  mutate(Month = case_when(
+    Clinical_Event == "BL" ~ 0,
+    Clinical_Event == "V01" ~ 3,
+    Clinical_Event == "V02" ~ 6,
+    Clinical_Event == "V03" ~ 9,
+    Clinical_Event == "V04" ~ 6*2,
+    Clinical_Event == "V05" ~ 6*3,
+    Clinical_Event == "V06" ~ 6*4,
+    Clinical_Event == "V07" ~ 6*5,
+    Clinical_Event == "V08" ~ 6*6,
+    Clinical_Event == "V09" ~ 6*7,
+    Clinical_Event == "V10" ~ 6*8,
+    Clinical_Event == "V11" ~ 6*9,
+    Clinical_Event == "V12" ~ 6*10,
+    Clinical_Event == "V13" ~ 72,
+    Clinical_Event == "V14" ~ 84,
+    Clinical_Event == "V15" ~ 96,
+    Clinical_Event == "V16" ~ 108), .after = Clinical_Event
+    )
+```
+
+## plots
+
+```{r}
+ggplot(SAA_clean, aes(Project_ID, Fmax_mean)) +
+  geom_violin() + geom_boxplot(width = 0.1)
+```
+
+```{r}
+ggplot(SAA_clean, aes(x = Sex, y = Fmax_mean, fill = Sex)) +
+  geom_violin(alpha = 0.6) +
+  geom_boxplot(width = 0.1, outlier.shape = NA) +
+  facet_wrap(~Project_ID) +
+  theme_minimal() +
+  labs(title = "Fmax fordelt efter køn for 24h og 150h")
+```
+
+```{r}
+ggplot(SAA_clean, aes(x = Project_ID, fill = SAA_Status)) +
+  geom_bar(position = "fill") +
+  theme_minimal() +
+  labs(title = "Andel af SAA-status",
+       y = "Proportion")
+```
+
+```{r}
+ggplot(SAA_clean, aes(x = Project_ID, fill = SAA_Status)) +
+  geom_bar(position = "fill") +
+  theme_minimal() +
+  facet_wrap(~Sex)
+  labs(title = "Andel af SAA-status",
+       y = "Proportion")
+```
+
+```{r}
+ggplot(SAA_clean, aes(x = SAA_Status, y = Fmax_mean, fill = SAA_Status)) +
+  geom_boxplot(width = 0.7, outlier.shape = NA) +
+  geom_jitter(width = 0.4, alpha = 0.2, size = 0.2) +
+  facet_wrap(~Project_ID) +
+  theme_minimal() +
+  labs(title = "Fmax fordelt efter SAA-status",
+       x = "SAA-status", y = "Mean Fmax")
+```
+
+```{r}
+SAA_data |> 
+  ggplot(mapping = 
+           aes(x = SAA_Status, 
+               fill = SAAMethod)) +
+  
+  geom_bar(position = "dodge")
+```
+
+```{r}
+SAA_clean |> 
+  ggplot(mapping = 
+           aes(x = SAA_Type, 
+               fill = SAA_Method)) +
+  
+  geom_bar(position = "dodge")
+```
+
+```         
+```
+
+```{r}
+SAA_clean |> 
+   ggplot(mapping = 
+           aes(x = Fmax_mean, 
+               y = SAA_Status)) +
+  
+  geom_boxplot() +
+  facet_wrap(~Project_ID) +
+  theme_minimal()
+```
+
+```{r}
+SAA_clean |>
+  filter(Project_ID == "155") |> 
+  ggplot(mapping = aes(x = Fmax_mean, y = AUC_mean, color = SAA_Status)) +    
+    geom_point(size = 0.2) +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data = SAA_clean,    
+       mapping = aes(x = Fmax_mean, y = TTT_mean, color = SAA_Status)) +    
+    geom_point(size = 0.2) +
+  facet_wrap(~Project_ID) +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data = SAA_clean,    
+       mapping = aes(x = TTT_mean, y = AUC_mean, color = SAA_Status)) +    
+    geom_point(size = 0.2) +
+  facet_wrap(~Project_ID) +
+  theme_minimal()
+```
+
+## Over tid
+
+```{r}
+SAA_multi <- SAA_clean |> 
+  group_by(Patient_Number, Project_ID) |> 
+  filter(n_distinct(Clinical_Event) > 1) |> 
+  ungroup()
+
+# 📊 Plot kun dem
+SAA_multi |> 
+  ggplot(aes(x = Clinical_Event, 
+             y = Fmax_mean, 
+             group = interaction(Patient_Number, Project_ID), 
+             color = SAA_Status)) +
+  
+  geom_line(alpha = 0.4) +
+  geom_point(size = 2) +
+  labs(
+    title = "Udvikling over tid — kun patienter med flere målinger",
+    x = "Klinisk målepunkt",
+    y = "Mean Fmax"
+  ) +
+  theme(legend.position = "none")
+```
+
+```{r}
+SAA_multi |> 
+  ggplot(aes(x = Clinical_Event, y = factor(Patient_Number), fill = SAA_Status)) +
+  geom_tile() +
+  scale_fill_manual(values = c("Negative" = "lightgray",
+                               "Indeterminate" = "gold",
+                               "Positive" = "firebrick")) +
+  theme_minimal() +
+  labs(
+    title = "SAA-status over tid for hver patient",
+    x = "Klinisk målepunkt",
+    y = "Patient",
+    fill = "SAA-status"
+  )
+
+```
+
+```{r}
+SAA_multi |> 
+  ggplot(aes(x = Clinical_Event, 
+             y = TTT_mean, 
+             group = interaction(Patient_Number, Project_ID), 
+             color = SAA_Status)) +
+  
+  geom_line(alpha = 0.4) +
+  geom_point(size = 2) +
+  labs(
+    title = "Udvikling over tid — kun patienter med flere målinger",
+    x = "Klinisk målepunkt",
+    y = "Mean TTT"
+  ) +
+  theme(legend.position = "none")
+```
+
+```{r}
+#|eval: false
+#|include: false
+
+#ggplot(SAA_multi, aes(x = Month, y = Fmax_mean, group = Patient_Number)) +
+  #geom_point(alpha = 0.5) +
+  #geom_smooth(se = FALSE, size = 0.7) +   # generel trend på tværs af patienter
+  #theme_minimal() +
+  #labs(title = "Udvikling af Fmax Mean over tid",
+       #x = "Måned",
+       #y = "Fmax Mean")
+```
+
+```{r}
+monthly_mean <- SAA_multi |> 
+  group_by(Month) |> 
+  summarise(Fmax_mean_avg = mean(Fmax_mean, na.rm = TRUE))
+
+ggplot(monthly_mean, aes(x = Month, y = Fmax_mean_avg)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  theme_minimal() +
+  labs(title = "Gennemsnitlig udvikling i Fmax Mean over tid",
+       x = "Måned",
+       y = "Gns. Fmax Mean")
+
+```
+
+```{r}
+monthly_summary <- SAA_clean |> 
+  group_by(Month) |> 
+  summarize(
+    mean_Fmax = mean(Fmax_mean, na.rm = TRUE),
+    sd_Fmax   = sd(Fmax_mean, na.rm = TRUE),
+    n         = n(),
+    se_Fmax   = sd_Fmax / sqrt(n)
+  )
+
+ggplot(monthly_summary, aes(x = Month, y = mean_Fmax)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  geom_errorbar(aes(ymin = mean_Fmax - se_Fmax,
+                    ymax = mean_Fmax + se_Fmax),
+                width = 0.1) +
+  theme_minimal() +
+  labs(title = "Gennemsnitlig Fmax Mean over tid", 
+       y = "Fmax Mean")
+```
+
+```{r}
+monthly_summary <- SAA_clean |> 
+  group_by(Month) |> 
+  summarize(
+    mean_Fmax = mean(Fmax_mean, na.rm = TRUE),
+    sd_Fmax   = sd(Fmax_mean, na.rm = TRUE),
+    n         = n(),
+    se_Fmax   = sd_Fmax / sqrt(n)
+  )
+
+ggplot(monthly_summary, aes(x = Month, y = mean_Fmax)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  geom_errorbar(aes(ymin = mean_Fmax - se_Fmax,
+                    ymax = mean_Fmax + se_Fmax),
+                width = 0.1) +
+  facet_wrap(~Sex) +
+  theme_minimal() +
+  labs(title = "Gennemsnitlig Fmax Mean over tid", 
+       y = "Fmax Mean")
+```
+
+```{r}
+monthly_summary <- SAA_clean |> 
+  group_by(Month) |> 
+  summarize(
+    median_Fmax = median(Fmax_mean, na.rm = TRUE),
+    Q1 = quantile(Fmax_mean, 0.25, na.rm = TRUE),
+    Q3 = quantile(Fmax_mean, 0.75, na.rm = TRUE)
+  )
+
+ggplot(monthly_summary, aes(x = Month, y = median_Fmax)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  geom_ribbon(aes(ymin = Q1, ymax = Q3), alpha = 0.2) +
+  theme_minimal() +
+  labs(title = "Median Fmax over tid (IQR som usikkerhed)")
+
+```
+
+```{r}
+slopes <- SAA_clean |> 
+  group_by(Patient_Number) |> 
+  summarize(
+    first_month = min(Month),
+    last_month = max(Month),
+    first = Fmax_mean[which.min(Month)],
+    last  = Fmax_mean[which.max(Month)],
+    slope = (last - first) / (last_month - first_month)
+  )
+
+ggplot(slopes, aes(x = slope)) +
+  geom_histogram(bins = 30) +
+  theme_minimal() +
+  labs(title = "Fordeling af individuelle slopes (ændring i Fmax)")
+```
+
+```{r}
+SAA_clean <- SAA_clean |>
+  mutate(CV_Fmax = sd(c(Fmax_Rep1, Fmax_Rep2, Fmax_Rep3))/mean(c(Fmax_Rep1, Fmax_Rep2, Fmax_Rep3)))
+
+SAA_multi |> 
+  group_by(Patient_Number) |> 
+  mutate(Fmax_change = Fmax_mean - first(Fmax_mean)) |> 
+  ggplot(aes(Month, Fmax_change, group = Patient_Number)) +
+  geom_line(alpha = 0.3)
+```
+
+```{r}
+ggplot(SAA_clean, aes(Month, Fmax_mean, color = SAA_Status)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+ggplot(SAA_clean, aes(Run_Date, Fmax_mean)) + geom_point(alpha = 0.5)
+```
+
+```{r}
+ggplot(SAA_clean, aes(TTT_mean, Fmax_mean)) +
+  geom_point(alpha = 0.4) +
+  facet_wrap(~Project_ID) +
+  geom_smooth()
+
+```
+
+```{r}
+ggplot(SAA_clean, aes(TTT_mean, Fmax_mean)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth()
+```
+
+```{r}
+ggplot(SAA_multi, aes(Fmax_mean, TTT_mean, colour = Month)) +
+  geom_point(alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Sammenhæng mellem Fmax_mean og TTT_mean")
+
+```
+
+```{r}
+ggplot(SAA_clean, aes(Fmax_mean)) +
+  geom_histogram(bins = 30) +
+  theme_minimal() +
+  labs(title = "Fordeling af Fmax_mean")
+```
+
+```{r}
+
+```
