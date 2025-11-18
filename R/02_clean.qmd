@@ -12,13 +12,13 @@ library(dplyr)
 load the raw data
 
 ```{r}
-saa_data_raw <- read_tsv("../data/01_dat_load.tsv")
+raw_data <- read_tsv("../data/01_dat_load.tsv")
 ```
 
 clean it
 
 ```{r}
-saa_data_tidy <- saa_data_raw |>
+tidy_data <- raw_data |>
   select(-"COHORT",
          -"PI_NAME",
          -"PI_INSTITUTION",
@@ -31,8 +31,34 @@ saa_data_tidy <- saa_data_raw |>
          -starts_with("Sample"))
 ```
 
-save the cleaned data
+```{r}
+tidy_data <- tidy_data |> 
+  pivot_longer(
+    cols = matches("Fmax|TTT|AUC"), 
+    names_to = c("measurement", "duration", "rep"), 
+    names_pattern = ("(Fmax|TTT|AUC)_(\\d+)h_Rep(\\d+)"),
+    values_to = "value",
+    values_drop_na = TRUE
+  ) |> 
+  pivot_wider(
+    names_from = measurement,
+    values_from = value
+  )
+```
 
 ```{r}
-write_tsv(saa_data_tidy, "../data/02_dat_clean.tsv")
+all(tidy_data$InstrumentRep1 == tidy_data$InstrumentRep2 & tidy_data$InstrumentRep2 == tidy_data$InstrumentRep3)
+
+```
+
+```{r}
+tidy_data <- tidy_data |> 
+  select(!InstrumentRep2 & !InstrumentRep3) |> 
+  rename(instrument = InstrumentRep1)
+```
+
+Save the cleaned data
+
+```{r}
+write_tsv(tidy_data, "../data/02_dat_clean.tsv")
 ```
