@@ -6,13 +6,13 @@ format: html
 load the clean data
 
 ```{r}
-saa_data_clean <- read_tsv("../02_dat_clean.tsv")
+saa_data_tidy <- read_tsv("../02_dat_clean.tsv")
 ```
 
 augment it
 
 ```{r}
-
+saa_data_aug <- saa_data_tidy 
 ```
 
 save the augmented data

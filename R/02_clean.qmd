@@ -12,17 +12,17 @@ library(dplyr)
 load the raw data
 
 ```{r}
-saa_data <- read_tsv("../data/01_dat_load.tsv")
+saa_data_raw <- read_tsv("../data/01_dat_load.tsv")
 ```
 
 clean it
 
 ```{r}
-
+saa_data_tidy <- saa_data_raw
 ```
 
 save the cleaned data
 
 ```{r}
-write_tsv(saa_data, "../data/02_dat_clean.tsv")
+write_tsv(saa_data_tidy, "../data/02_dat_clean.tsv")
 ```
