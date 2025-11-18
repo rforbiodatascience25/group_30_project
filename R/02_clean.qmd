@@ -37,7 +37,7 @@ tidy_data <- raw_data |>
          -starts_with("SLOPE"),
          -starts_with("T50"),
          -starts_with("Sample"))
-```
+
 
 ## titel ift at data skrives længere
 
