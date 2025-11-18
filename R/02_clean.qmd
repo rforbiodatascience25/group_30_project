@@ -18,7 +18,17 @@ saa_data_raw <- read_tsv("../data/01_dat_load.tsv")
 clean it
 
 ```{r}
-saa_data_tidy <- saa_data_raw
+saa_data_tidy <- saa_data_raw |>
+  select(-"COHORT",
+         -"PI_NAME",
+         -"PI_INSTITUTION",
+         -"TYPE",
+         -"SAAMethod",
+         -"SAA_Type",
+         -starts_with("TSmax"),
+         -starts_with("SLOPE"),
+         -starts_with("T50"),
+         -starts_with("Sample"))
 ```
 
 save the cleaned data
