@@ -11,13 +11,15 @@ library(tidyverse)
 
 ```{r}
 raw_data <- read_tsv("../data/01_dat_load.tsv")
+raw_data |> 
+  slice_sample(n = 10)
 ```
 
 # Clean the data
 
 ## Deleting columns
 
-Some columns in the data-set are not part of the chosen analytic points. The columns chosen to omit are either:
+Some columns in the data-set are not part of the chosen analytic points. The columns chosen to omit is at the cause are either:
 
 -   Irrelevant to the analysis such as the name of the institution or the responsible practitioner.
 
@@ -28,6 +30,7 @@ Some columns in the data-set are not part of the chosen analytic points. The col
 -   Lack meassurements for most observations like SampleVolume.
 
 ```{r}
+# Neglecting the unused columns:
 tidy_data <- raw_data |>
   select(-"COHORT",
          -"PI_NAME",
@@ -57,6 +60,8 @@ tidy_data <- tidy_data |>
     names_from = measurement,
     values_from = value
   )
+tidy_data |> 
+  slice_sample(n = 10)
 ```
 
 ## checking the instrument
