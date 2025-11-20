@@ -17,12 +17,59 @@ saa_data_aug
 
 ## Plot
 
-```{r}
-saa_data_aug |> 
-  ggplot(aes(project, fmax_mean)) +
-  geom_violin() + geom_boxplot(width = 0.1)
+```         
 ```
 
 ```{r}
-names(saa_data_aug)
+ggplot(saa_data_aug, aes(x = factor(project), y = fmax_mean, color = saa_result)) +
+  geom_jitter(width = 0.2, alpha = 0.6) +
+  labs(x = "Project", y = "Fmax mean")
+
+```
+
+```{r}
+ggplot(saa_data_aug, aes(factor(project), fmax_mean, fill = factor(project))) +
+  geom_boxplot() +
+  facet_wrap(~ saa_result) +
+  labs(x = "Project", y = "Fmax mean")
+
+```
+
+# repeats ift projekter
+
+```{r}
+ggplot(saa_data_aug, aes(x = factor(rep), y = fmax, color = factor(project))) +
+  geom_boxplot() +
+  facet_wrap(~ project) +
+  labs(x = "Repeat", y = "Fmax")
+
+```
+
+## instruments
+
+```{r}
+saa_data_aug |> 
+  filter(project == 155) |> 
+  ggplot(aes(x = factor(rep), y = fmax, color = factor(instrument))) +
+  geom_boxplot() +
+  facet_wrap(~ instrument) +
+  labs(x = "Repeat", y = "Fmax")
+```
+
+```{r}
+saa_data_aug |> 
+  filter(project == 237) |> 
+  ggplot(aes(x = factor(rep), y = fmax, color = factor(instrument))) +
+  geom_boxplot() +
+  facet_wrap(~ instrument) +
+  labs(x = "Repeat", y = "Fmax")
+```
+
+```{r}
+saa_data_aug |> 
+  filter(instrument %in% 2 %in%  4 %in% 6) |> 
+  ggplot(aes(x = factor(rep), y = fmax)) +
+  geom_boxplot() +
+  labs(x = "Repeat", y = "Fmax")
+
 ```
