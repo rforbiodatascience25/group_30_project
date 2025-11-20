@@ -11,7 +11,9 @@ library(dplyr)
 
 # Loading the raw data
 
-`{r}C} raw_data <- read_tsv("../data/01_dat_load.tsv")`
+```{r}
+raw_data <- read_tsv("../data/01_dat_load.tsv")
+```
 
 # Clean the data
 
