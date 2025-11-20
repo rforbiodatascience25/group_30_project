@@ -10,7 +10,7 @@ library(tidyverse)
 # Loading the clean data
 
 ```{r}
-saa_data_tidy <- read_tsv("../data/02_dat_clean.tsv")
+tidy_data <- read_tsv("../data/02_dat_clean.tsv")
 ```
 
 # Augment Data
@@ -23,7 +23,7 @@ The means are calculated of Fmax, ttt and auc from a single patient (patient_num
 
 ```{r}
 # Calculting the means:
-means <- saa_data_tidy |>
+means <- tidy_data |>
   group_by(patient_number, clinical_event) |>
   summarise(
     fmax_mean = mean(fmax, na.rm = TRUE),
@@ -33,7 +33,7 @@ means <- saa_data_tidy |>
   )
 
 # Adding the means to the dataset:
-dat_aug <- saa_data_tidy |>
+dat_aug <- tidy_data |>
   left_join(means,
             by = c("patient_number", "clinical_event"))
 
@@ -77,14 +77,14 @@ As the two projects differ in method, they used different requirements for each.
 Prepare replicate vectors for SAA rule
 
 ```{r}
-reps <- saa_data_tidy |>
-  group_by(patient_number, project, duration, clinical_event) %>%
+reps <- tidy_data |>
+  group_by(patient_number, project, duration, clinical_event) |> 
   summarise(
     fmax_reps = list(fmax),
     .groups = "drop"
   )
 
-dat_aug <- dat_aug %>%
+dat_aug <- dat_aug |> 
   left_join(reps,
             by = c("patient_number", "project", "duration","clinical_event"))
 View(reps)
@@ -127,16 +127,14 @@ saa_rule_237 <- function(x) {
 
   NA_character_
 }
-
-
 ```
 
 \
 Applying the functions:
 
 ```{r}
-dat_aug <- dat_aug %>%
-  rowwise() %>%
+dat_aug <- dat_aug |> 
+  rowwise() |> 
   mutate(
     saa_custom = case_when(
       project == "155" ~ saa_rule_155(fmax_reps),
@@ -151,17 +149,17 @@ dat_aug <- dat_aug %>%
 lastly we calculate the days from baseline and remove the generated vector column before saving
 
 ```{r}
-dat_aug <- dat_aug %>%
-  mutate(rundate = as.Date(rundate)) %>%
-  group_by(patient_number) %>%
-  mutate(days_from_baseline = as.numeric(rundate - min(rundate, na.rm = TRUE))) %>%
+dat_aug <- dat_aug |> 
+  mutate(rundate = as.Date(rundate)) |> 
+  group_by(patient_number) |> 
+  mutate(days_from_baseline = as.numeric(rundate - min(rundate, na.rm = TRUE))) |> 
   ungroup()
 
-saa_data_aug <- dat_aug %>% select(-fmax_reps)
+dat_aug <- dat_aug |>  select(-fmax_reps)
 ```
 
 ```{r}
-saa_data_aug <- saa_data_aug |> 
+dat_aug <- dat_aug |> 
   mutate(across(c(project, 
                   duration, 
                   rep, 
@@ -170,13 +168,8 @@ saa_data_aug <- saa_data_aug |>
                 as.character))
 ```
 
-```{r}
-saa_data_aug
-```
-
-\
 save the augmented data
 
 ```{r}
-write_tsv(saa_data_aug, "../data/03_dat_aug.tsv")
+write_tsv(dat_aug, "../data/03_dat_aug.tsv")
 ```
