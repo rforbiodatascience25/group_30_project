@@ -3,29 +3,19 @@ title: "06_analysis_2"
 format: html
 ---
 
-## Load packages
-
 ```{r}
 library(tidyverse)
 ```
 
-## Fmax_mean in the two projects
+# Analysis of Fmax in SAA Projects 155 and 237
 
-Selvom vi kun kigger på **means**, så er der allerede en tydelig forskel:
+This analysis focuses on the two SAA projects, 155 and 237. Each project measured fluorescence in three replicates per sample.
 
--   **Projekt 237** har *generelt meget højere Fmax_mean* end projekt 155.
+Variations in assay duration, cycle length, and reaction mixture composition mean that fluorescence values (Fmax) are not directly comparable across projects without normalization.
 
-**Hvorfor giver det mening?**
+## Fmax Means Between Projects
 
--   Projekt 237 bruger et **24-timers assay**
-
--   Projekt 155 bruger et **150-timers assay**
-
--   *Assays med forskellig varighed og cykluslængde har forskellig fluorescensdynamik.*
-
--   Derfor er Fmax ikke direkte sammenlignelig mellem projekter uden normalisering, og rå-niveauerne forventes at være højere i 24h assayet.
-
-**means alene er ikke nok til at sammenligne projekter, men de viser en klar protokol-afhængig forskel.**
+Although we only consider mean Fmax values, there is a big difference. Project 237 consistently shows higher Fmax mean than Project 155. This is expected due to the shorter 24-hour assay, which produces higher fluorescence levels compared to the longer 150-hour assay of Project 155.
 
 ```{r}
 saa_data_aug |> 
@@ -34,9 +24,9 @@ saa_data_aug |>
   geom_boxplot(width = 0.1)
 ```
 
-# **Repeats: Is the assayet consistent?**
+# Replicate Consistency
 
-Er målingerne i samme assay (rep 1–3) konsistente?
+Means alone can't compare the two projects, and to make a comparison and assessment on their precision, we will look at whether replicate measurements (rep 1–3) are consistent within each project
 
 ```{r}
 ggplot(saa_data_aug, aes(x = factor(rep), y = fmax, color = project)) +
@@ -45,18 +35,6 @@ ggplot(saa_data_aug, aes(x = factor(rep), y = fmax, color = project)) +
   labs(x = "Repeat", y = "Fmax")
 
 ```
-
-Boxplottet viser:
-
--   I projekt 155 er rep 1 → rep 3 generelt faldende
-
--   I projekt 237 er rep 1 og rep 3 ofte lidt højere end rep 2
-
-Det tyder på:
-
--   Replicates er *ikke identiske*, men ofte har et karakteristisk mønster.
-
--   Mønsteret afhænger af projektet og dermed *af assay-protokollen*.
 
 ```{r}
 repeats_stat <- saa_data_aug |> 
@@ -67,33 +45,37 @@ repeats_stat <- saa_data_aug |>
             .by = c(project, rep))
 ```
 
-|                  | 155   | 237    |
-|------------------|-------|--------|
-| rep 1 **median** | 72926 | 142138 |
-| rep 2 **median** | 70262 | 135570 |
-| rep 3 **median** | 69721 | 137200 |
-| varians          | 3205  | 6568   |
+|                  | 155      | 237      |
+|------------------|----------|----------|
+| **rep 1 median** | 72926    | 142138   |
+| **rep 2 median** | 70262    | 135570   |
+| **rep 3 median** | 69721    | 137200   |
+| **Variation**    | **3205** | **6568** |
 
-i projekt 155 → Et stabilt og konsistent fald rep for rep.
+Observations:
 
-i projekt 237 → Mere variation, men stadig inden for et snævert interval.
+-   Project 155: Replicates show a gradual decline from rep 1 to rep 3
 
-|               | 155      | 237      |
-|---------------|----------|----------|
-| rep 1 **IQR** | 69735.50 | 59529.75 |
-| rep 2 IQR     | 69404.25 | 63909.50 |
-| rep 3 **IQR** | 82973.25 | 63178.50 |
-| varians       | 13569    | 4379.75  |
+-   Project 237: Rep 1 and rep 3 are slightly higher than rep 2.
 
--   Projekt 155: IQR ca. 69–82k (større variation)
+Replicates are not identical but follow a pattern that is project-dependent, reflecting assay protocol characteristics.
 
--   Projekt 237: IQR ca. 59–64k (mindre variation)\
+|               | 155       | 237         |
+|---------------|-----------|-------------|
+| **rep 1 IQR** | 69735.50  | 59529.75    |
+| **rep 2 IQR** | 69404.25  | 63909.50    |
+| **rep 3 IQR** | 82973.25  | 63178.50    |
+| **Variation** | **13569** | **4379.75** |
 
-**Projekt 237 er mere konsistent mellem replicates end projekt 155.**
+-   Project 155: IQR \~69–82k, showing higher variability (VARIATION?)
 
-## Standard deviation mellem replicates
+-   Projekt 237: IQR \@\~59–64k, showing more consistent replicates\
 
-Standard deviation viser, hvor stabile replicates er inden for samme måling.
+**Project 237 is therefore more consistent between replicates than Project 155.**
+
+## Replicate Standard Deviation
+
+Standard deviation (SD) of Fmax across replicates measures internal stability of the assay.
 
 ```{r}
 sd_saa_data <- saa_data_aug |> 
@@ -112,7 +94,6 @@ sd_saa_data |>
 ```{r}
 sd_saa_data |>
   ungroup() |> 
-  filter(rep == 1) |> 
   summarize(min = min(fmax_sd), 
             mean=mean(fmax_sd), 
             median=median(fmax_sd), 
@@ -121,21 +102,19 @@ sd_saa_data |>
              .by = project)
 ```
 
-|        | 155       | 237      |
-|--------|-----------|----------|
-| mean   | 24065.55  | 10386.01 |
-| median | 22198.389 | 5662.369 |
-| IQR    | 26131.171 | 6469.984 |
+Analysis of replicate SDs shows a striking difference:
 
-her er der kæmpe forskel. Projekt 155 har 2–4x større variation mellem replicates end projekt 237.
+|            | 155       | 237      |
+|------------|-----------|----------|
+| **mean**   | 24065.55  | 10386.01 |
+| **median** | 22198.389 | 5662.369 |
+| **IQR**    | 26131.171 | 6469.984 |
 
-Dette er et centralt kvalitetsresultat.
+The 150-hour assay (Project 155) has 2-4 times higher replicate variability, indicating lower measurement precision than the 24-hour assay (Project 237). This is a central quality finding.
 
-The 150-hour protocol produces substantially higher variability between replicates, indicating reduced measurement precision compared to the 24-hour assay.
+## Instrument-Specific Variability
 
-## Instrumenter: Forskelle i SD for hvert instrument
-
-vi kan mpske også specifikt kigge på instrumenterne og deres standard deviation.
+We examined whether instruments contribute to observed variability.
 
 ```{r}
 sd_saa_data |> 
@@ -165,31 +144,13 @@ sd_instruments_stats <- sd_saa_data |>
 | 237 | 2              | 8384.049  | 4482.218   | 4952.750  |
 | 237 | 4              | 8788.222  | 4594.309   | 5483.490  |
 
-### Projekt 155 (SD)
+-   Project 155: instrument 2 shows highest SD (\~30k), instrument 6 lowest (\~20k)
 
--   Instrument 2 → **højeste SD**
+-   Project 237: instrument 6 shows highest SD (\~13k), instrument 2 lowest (\~8.4k)
 
--   Instrument 6 → **laveste SD**
+There is no global instrument trend; variability depends on the combination of project and instrument. Importantly, even the “worst” instrument in Project 237 has lower SD than Project 155. This confirms that assay protocol is the dominant source of variability.
 
-### Projekt 237 (SD)
-
--   Instrument 6 → **højeste SD**
-
--   Instrument 2 → **laveste SD**
-
-**Fortolkning:**
-
--   Der er *ingen global instrument-trend* på tværs af projekter.
-
--   Det viser, at **variation ikke skyldes instrumentet som alene faktor**, men afhænger af **kombinationen af instrument + projekt (assay)**.
-
-Og **vigtigere**:
-
-Selv når det “værste” instrument bruges i projekt 237, er SD stadig meget lavere end i projekt 155.
-
-→ Det betyder, at **projekt‐protokollen** er den dominerende kilde til forskellen.
-
-## Instrumenter: Rå Fmax (ikke SD)
+## Raw Fmax Across Instruments and Replicates
 
 ```{r}
 saa_data_aug |> 
@@ -214,7 +175,9 @@ stats_instruments_project <- saa_data_aug |>
 stats_instruments_project
 ```
 
-instrument 2
+For both projects, either rep 1 or rep 3 typically has the highest Fmax, with rep 2 lower. This is common in real-time aggregation assays: rep 1 “primes” the system, and rep 3 stabilizes the measurement curve. Replicates follow reproducible internal technical patterns, which are stable within a project and instrument.
+
+### Instrument 2
 
 |                 | 155     | 237      |
 |-----------------|---------|----------|
@@ -222,7 +185,7 @@ instrument 2
 | Median (rep 2)  | 86402.0 | 133614.0 |
 | Median (rep 3)  | 81850.0 | 134146.0 |
 
-instrument 4
+### Instrument 4
 
 |                 | 155     | 237      |
 |-----------------|---------|----------|
@@ -230,7 +193,7 @@ instrument 4
 | Median (rep 2)  | 65894.5 | 130309.5 |
 | Median (rep 3)  | 66471.0 | 132749.0 |
 
-instrument 6
+### instrument 6
 
 |                 | 155     | 237      |
 |-----------------|---------|----------|
@@ -238,17 +201,14 @@ instrument 6
 | Median (rep 2)  | 56437.0 | 143678.0 |
 | Median (rep 3)  | 63862.0 | 141988.0 |
 
--   For begge projekter har enten rep 1 eller rep 3 typisk den højeste Fmax.
+## Summary and Interpretation
 
--   Rep 2 er ofte lavere.
+Across all analyses - mean Fmax, replicate structure, SD, and instrument comparison - Project 237 consistently shows:
 
-Dette er faktisk meget typisk i real-time aggregation assays:\
-**det første rep “fylder systemet” i cuvetten**, og rep 3 får en mere stabil målekurve.
+-   Higher Fmax values
 
-Dette understøtter igen:
+-   Significantly lower replicate variability
 
-> **Replicates har interne tekniske mønstre, som er ret stabile inden for samme projekt og instrument.**
+-   More stable and reproducible replicates
 
-# **Så hvad kan du sige samlet i din analyse?**
-
-> Across all analyses (means, replicate structure, standard deviation, and instrument comparisons), project 237 consistently displays higher Fmax values and significantly lower replicate variability. Project 155, which uses a 150-hour assay with lower measurement frequency, shows 2–4× higher replicate standard deviation compared to the 24-hour assay used in project 237. This demonstrates that the assay protocol—not the instrument—is the dominant source of variability. Within each project, repeats follow a reproducible structure, typically with higher values in either the first or third replicate, but the overall stability is markedly better in project 237.
+Project 155, using the 150-hour assay, displays 2–4× higher replicate SD, indicating lower measurement precision. Instrument effects are minor compared to the protocol-driven differences. Repeats exhibit characteristic patterns, but overall stability is superior in Project 237. These findings highlight that assay protocol, rather than instrument, is the dominant factor influencing Fmax measurements.
