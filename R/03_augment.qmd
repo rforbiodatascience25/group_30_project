@@ -15,6 +15,21 @@ tidy_data <- read_tsv("../data/02_dat_clean.tsv")
 
 # Augment Data
 
+## Finding days from baseline
+
+Some patients were tested multiple times at different dates. We calculate the days from baseline and add a colum with this information.
+
+It should be noted that for 2 patients (40771 and 40754) the rundate appears to have been inputted wrong, so that it appears as if several samples were taken on just one day, despite them having different clinical_events. Therefore, it is insufficient to just sort by days_from_baseline, and clinical_events is therefore kept.
+
+```{r}
+tidy_data <- tidy_data |> 
+  mutate(rundate = as.Date(rundate)) |> 
+  group_by(patient_number) |> 
+  mutate(days_from_baseline = as.numeric(rundate - min(rundate, na.rm = TRUE))) |> 
+  ungroup()
+
+```
+
 ## Calculating means of Fmax, ttt and auc
 
 Instead of working with three replicates of a single observation, moving forward the mean of the variable will be used to represent the observation.
@@ -22,9 +37,8 @@ Instead of working with three replicates of a single observation, moving forward
 The means are calculated of Fmax, ttt and auc from a single patient (patient_number) per visit (clinical_event).
 
 ```{r}
-# Calculting the means:
 means <- tidy_data |>
-  group_by(patient_number, clinical_event) |>
+  group_by(patient_number, clinical_event, days_from_baseline) |>
   summarise(
     fmax_mean = mean(fmax, na.rm = TRUE),
     ttt_mean  = mean(ttt,  na.rm = TRUE),
@@ -32,10 +46,12 @@ means <- tidy_data |>
     .groups = "drop"
   )
 
-# Adding the means to the dataset:
+# Adding the means to the dataset
 dat_aug <- tidy_data |>
   left_join(means,
-            by = c("patient_number", "clinical_event"))
+            by = c("patient_number", 
+                   "clinical_event", 
+                   "days_from_baseline"))
 
 ```
 
@@ -78,7 +94,7 @@ Prepare replicate vectors for SAA rule
 
 ```{r}
 reps <- tidy_data |>
-  group_by(patient_number, project, duration, clinical_event) |> 
+  group_by(patient_number, project, clinical_event, days_from_baseline) |> 
   summarise(
     fmax_reps = list(fmax),
     .groups = "drop"
@@ -86,8 +102,10 @@ reps <- tidy_data |>
 
 dat_aug <- dat_aug |> 
   left_join(reps,
-            by = c("patient_number", "project", "duration","clinical_event"))
-View(reps)
+            by = c("patient_number", 
+                   "project", 
+                   "clinical_event",
+                   "days_from_baseline"))
 ```
 
 We prepare to calculate the status from the fmax values by first creating two functions with the rules:
@@ -130,7 +148,7 @@ saa_rule_237 <- function(x) {
 ```
 
 \
-Applying the functions:
+Applying the functions and subsequently removing the generated fmax_reps column.
 
 ```{r}
 dat_aug <- dat_aug |> 
@@ -141,22 +159,15 @@ dat_aug <- dat_aug |>
       project == "237" ~ saa_rule_237(fmax_reps),
       TRUE ~ NA_character_
     )
-  ) %>%
+  ) |> 
   ungroup()
+
+dat_aug <- dat_aug |>  
+  select(-fmax_reps)
 
 ```
 
-lastly we calculate the days from baseline and remove the generated vector column before saving
-
-```{r}
-dat_aug <- dat_aug |> 
-  mutate(rundate = as.Date(rundate)) |> 
-  group_by(patient_number) |> 
-  mutate(days_from_baseline = as.numeric(rundate - min(rundate, na.rm = TRUE))) |> 
-  ungroup()
-
-dat_aug <- dat_aug |>  select(-fmax_reps)
-```
+Declaring datatype in some columns
 
 ```{r}
 dat_aug <- dat_aug |> 
@@ -168,7 +179,7 @@ dat_aug <- dat_aug |>
                 as.character))
 ```
 
-save the augmented data
+## Save the augmented data
 
 ```{r}
 write_tsv(dat_aug, "../data/03_dat_aug.tsv")
