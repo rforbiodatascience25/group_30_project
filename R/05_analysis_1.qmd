@@ -6,6 +6,8 @@ format: html
 Load libraries
 
 ```{r}
+#| message: false
+
 library(tidyverse)
 ```
 

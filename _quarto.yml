@@ -1,5 +1,9 @@
 project:
   title: "Group 30 Final Project"
 
-editor: visual
+format:
+  html:
+    self-contained: true  # indlejrer alle figurer, ingen _files-mapper
+    output-dir: ../results
 
+editor: visual

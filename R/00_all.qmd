@@ -1,11 +1,34 @@
 ---
 title: "00_all"
 format: html
-render:
-  - 01_load.qmd
-  - 02_clean.qmd
-  - 03_augment.qmd
-  - 04_describe.qmd
-  - 05_analysis_1.qmd
-  - 06_analysis_2.qmd
 ---
+
+# 01_load
+
+```{r, child="01_load.qmd"}
+```
+
+# 02_clean
+
+```{r, child="02_clean.qmd"}
+```
+
+# 03_augment
+
+```{r, child="03_augment.qmd"}
+```
+
+# 04_describe
+
+```{r, child="04_describe.qmd"}
+```
+
+# 05_analysis_1
+
+```{r, child="05_analysis_1.qmd"}
+```
+
+# 06_analysis_2
+
+```{r, child="06_analysis_2.qmd"}
+```

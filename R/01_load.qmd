@@ -4,10 +4,15 @@ format: html
 ---
 
 ```{r}
+#| message: false
+
 library("tidyverse")
 ```
 
 ```{r}
+#| message: false
+#| warning: false
+
 raw_data <- read_csv("../data/_raw/SAA_Biospecimen_Analysis_Results_01Nov2025.csv")
 ```
 
