@@ -1,8 +1,6 @@
 ---
 title: "00_all"
-format:
-  html:
-    output-dir: results
+format: html
 ---
 
 # 01_load
@@ -34,4 +32,3 @@ format:
 
 ```{r, child="06_analysis_2.qmd"}
 ```
-

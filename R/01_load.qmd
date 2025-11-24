@@ -1,8 +1,6 @@
 ---
 title: "01_load"
-format:
-  html:
-    output-dir: ../results
+format: html
 ---
 
 ```{r}

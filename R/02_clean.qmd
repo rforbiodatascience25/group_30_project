@@ -1,8 +1,6 @@
 ---
 title: "02_clean"
-format:
-  html:
-    output-dir: ../results
+format: html
 ---
 
 ```{r}

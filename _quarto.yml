@@ -1,12 +1,9 @@
 project:
   title: "Group 30 Final Project"
-  render:
-    - "R/*.qmd"
 
 format:
   html:
-    output-dir: results
-    self-contained: false
+    self-contained: true  # indlejrer alle figurer, ingen _files-mapper
+    output-dir: ../results
 
 editor: visual
-
