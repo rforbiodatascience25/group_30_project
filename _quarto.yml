@@ -1,5 +1,7 @@
 project:
   title: "Group 30 Final Project"
+  render:
+    - "R/*.qmd"
 
 format:
   html:
