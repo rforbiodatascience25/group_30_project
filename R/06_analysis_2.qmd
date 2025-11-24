@@ -1,10 +1,28 @@
 ---
 title: "06_analysis_2"
-format: html
+format: 
+  html:
+      self-contained: false
+  
+execute:
+  fig-format: png
+  fig-path: "../results/"
 ---
 
 ```{r}
+#| message: false
+
 library(tidyverse)
+
+aug_data <- read_tsv("../data/03_aug_data.tsv")
+
+aug_data <- aug_data |> 
+  mutate(across(c(project, 
+                  duration, 
+                  rep, 
+                  instrument), 
+                
+                as.character))
 ```
 
 ```{r}
@@ -46,7 +64,7 @@ The goal of this analysis is therefore to evaluate the precision, consistency, a
 ***Project 237 consistently shows higher mean Fmax values than Project 155. This difference is expected: shorter assays accumulate fluorescence more rapidly, while longer assays distribute aggregation over many more cycles, resulting in lower peak values.***
 
 ```{r}
-p_fmax_mean_dist <- saa_data_aug |> 
+p_fmax_mean_dist <- aug_data |> 
   ggplot(
     aes(
       x = fmax_mean,
@@ -63,7 +81,7 @@ p_fmax_mean_dist <- saa_data_aug |>
   geom_boxplot(width = 0.12, 
                color = "black", 
                outlier.alpha = 0.3) +
-    
+  
   scale_color_manual(values = my_cols) +
   scale_fill_manual(values = my_cols) +
   theme_minimal(base_size = 14) +
@@ -81,6 +99,7 @@ p_fmax_mean_dist <- saa_data_aug |>
 ```
 
 ```{r}
+#| fig:
 p_fmax_mean_dist
 ```
 
@@ -93,7 +112,7 @@ Although absolute values differ, the focus of this analysis is not the magnitude
 Means alone can't be used to compare the consistency of the two assays. To do this, we will compare Fmax across replicates 1–3 for each project.
 
 ```{r}
-p_fmax_by_rep <- ggplot(saa_data_aug, aes(
+p_fmax_by_rep <- ggplot(aug_data, aes(
     x = fmax, 
     y = factor(rep), 
     color = project, 
@@ -126,7 +145,7 @@ p_fmax_by_rep
 ```
 
 ```{r}
-repeats_fmax_stats <- saa_data_aug |> 
+repeats_fmax_stats <- aug_data |> 
   ungroup() |> 
   summarize(mean=mean(fmax), 
             median=median(fmax),
@@ -167,7 +186,7 @@ These patterns are consistent and most likely reflect behavior that is specific 
 Standard deviation (SD) of Fmax across replicates measures stability of the assays.
 
 ```{r}
-sd_saa_data <- saa_data_aug |> 
+sd_saa_data <- aug_data |> 
   group_by(patient_number, rundate) |> 
   mutate(fmax_sd = sd(fmax))
 ```
@@ -292,7 +311,7 @@ Instrument-level statistics:
 To visualize replicate patterns across instruments:
 
 ```{r}
-p_fmax_raw_rep_inst <- saa_data_aug |> 
+p_fmax_raw_rep_inst <- aug_data |> 
   filter(instrument %in% c(2,4,6)) |> 
   
   ggplot(aes(
@@ -324,7 +343,7 @@ p_fmax_raw_rep_inst
 ```
 
 ```{r}
-stats_instruments_project <- saa_data_aug |>
+stats_instruments_project <- aug_data |>
   ungroup() |> 
   filter(instrument == 2 | instrument == 4 | instrument == 6) |> 
   summarize(min = min(fmax), 

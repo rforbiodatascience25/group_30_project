@@ -1,5 +1,10 @@
 project:
   title: "Group 30 Final Project"
 
+format:
+  html:
+    output-dir: results
+    self-contained: false
+
 editor: visual
 

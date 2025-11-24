@@ -1,11 +1,34 @@
 ---
 title: "00_all"
-format: html
-render:
-  - 01_load.qmd
-  - 02_clean.qmd
-  - 03_augment.qmd
-  - 04_describe.qmd
-  - 05_analysis_1.qmd
-  - 06_analysis_2.qmd
+format:
+  html:
+    self-contained: false
 ---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  fig.path = "../results/",
+  fig.format = "png",
+  echo = TRUE
+)
+
+```
+
+```{include} 01_load.qmd}
+```
+
+```{include} 02_clean.qmd}
+```
+
+```{include} 03_augment.qmd}
+```
+
+```{include} 04_describe.qmd}
+```
+
+```{include} 05_analysis_1.qmd}
+```
+
+```{include} 06_analysis_2.qmd}
+```
