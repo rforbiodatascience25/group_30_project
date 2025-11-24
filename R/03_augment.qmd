@@ -196,5 +196,5 @@ aug_data <- aug_data |>
 ## Save the augmented data
 
 ```{r}
-write_tsv(aug_data, "../data/03_dat_aug.tsv")
+write_tsv(aug_data, "../data/03_aug_data.tsv")
 ```

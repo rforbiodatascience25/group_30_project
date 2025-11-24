@@ -7,20 +7,19 @@ Load libraries
 
 ```{r}
 library(tidyverse)
-library(readr)
 ```
 
 load the augmented data from file:
 
 ```{r}
-saa_data_aug <- read_tsv("../data/03_dat_aug.tsv")
+saa_aug_data <- read_tsv("../data/03_aug_data.tsv")
 
 ```
 
 ```{r}
 # Create a summary table comparing the two status columns
 
-status_comparison <- saa_data_aug %>%
+status_comparison <- saa_aug_data %>%
   group_by(project, patient_number) %>%
     summarise(
     given_status = first(saa_result),
