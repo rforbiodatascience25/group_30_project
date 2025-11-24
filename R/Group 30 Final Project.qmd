@@ -1,0 +1,67 @@
+---
+title: "Group 30 Final Project"
+---
+
+Packages
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+raw_data <- read_csv("../data/_raw/SAA_Biospecimen_Analysis_Results_01Nov2025.csv")
+```
+
+```{r}
+head(raw_data)
+```
+
+```{r}
+
+amprion_data <- raw_data %>%
+  filter(SAAMethod == "Amprion-24h alpha-synuclein-SAA")
+```
+
+```{r}
+ggplot(amprion_data, aes(x = SEX, fill = SEX)) +
+  geom_bar() +
+  labs(title = "Cohort Composition",
+       x = "SEX",
+       y = "Number of Participants") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+```{r}
+ggplot(amprion_data, aes(x = CLINICAL_EVENT, fill = CLINICAL_EVENT)) +
+  geom_bar() +
+  labs(title = "CLINICAL_EVENT",
+       x = "CLINICAL_EVENT",
+       y = "Number of Participants") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+ 
+
+```{r}
+ggplot(raw_data, aes(x = SAAMethod, fill = SAAMethod)) +
+  geom_bar() +
+  labs(title = "SAAMethod",
+       x = "SAAMethod",
+       y = "Number of Participants") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+```{r}
+ggplot(amprion_data, aes(x = SAA_Status, fill = SAA_Status)) +
+  geom_bar() +
+  labs(title = "SAA_Status",
+       x = "SAA_Status",
+       y = "Number of Participants") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```

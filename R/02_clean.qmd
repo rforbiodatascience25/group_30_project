@@ -1,15 +1,21 @@
 ---
 title: "02_clean"
-format: html
+format:
+  html:
+    output-dir: ../results
 ---
 
 ```{r}
+#| message: false
+
 library(tidyverse)
 ```
 
 # Loading the raw data
 
 ```{r}
+#| message: false
+
 raw_data <- read_tsv("../data/01_dat_load.tsv")
 raw_data |> 
   slice_sample(n = 10)

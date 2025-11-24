@@ -1,15 +1,21 @@
 ---
 title: "04_describe"
-format: html
+format:
+  html:
+    output-dir: ../results
 ---
 
 ```{r}
+#| message: false
+
 library(tidyverse)
 ```
 
 # Loading the augmented data
 
 ```{r}
+#| message: false
+
 saa_aug_data <- read_tsv("../data/03_aug_data.tsv")
 ```
 
@@ -36,11 +42,19 @@ A general theme has been made:
     )
 ```
 
+```{r}
+knitr::opts_chunk$set(
+  fig.path = "../results/",
+  fig.format = "png",
+  echo = TRUE
+)
+```
+
 ## Distribution across projects
 
 The data contains observations made in two projects. The distribution from each projects can be seen in the plot as well as the male/female ratio.
 
-```{r}
+```{r 04_key_plot_1}
 project_distribution <- saa_aug_data |>
   mutate(project = as.character(project)) |>
   ggplot(mapping = aes(x = project)) + 
@@ -72,7 +86,7 @@ patients_participants
 
 The distribution of each patient's latest experiment was plotted. Most of the data only contains information from the Baseline experiment. If the patients went for further experiments, most of them got the last assessment \~12 months (V04) after their Baseline.
 
-```{r}
+```{r 04_key_plot_2}
 multiple_experiments <- saa_aug_data |>
   arrange(desc(days_from_baseline)) |>
   distinct(patient_number, .keep_all = TRUE) |>
@@ -114,7 +128,7 @@ saa_aug_data |>
 
 To analyse the samples of cerebrospinal fluid in the SAA, different equipment was used.
 
-```{r}
+```{r 04_key_plot_3}
 instruments_used <- saa_aug_data |>
   mutate(project = as.character(project)) |>
   mutate(instrument = as.character(instrument)) |>

@@ -1,15 +1,21 @@
 ---
 title: "03_augment"
-format: html
+format:
+  html:
+    output-dir: ../results
 ---
 
 ```{r}
+#| message: false
+
 library(tidyverse)
 ```
 
 # Loading the clean data
 
 ```{r}
+#| message: false
+
 tidy_data <- read_tsv("../data/02_dat_clean.tsv")
 ```
 

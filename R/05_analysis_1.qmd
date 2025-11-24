@@ -1,11 +1,15 @@
 ---
 title: "05_analysis_1"
-format: html
+format:
+  html:
+    output-dir: ../results
 ---
 
 Load libraries
 
 ```{r}
+#| message: false
+
 library(tidyverse)
 ```
 
