@@ -112,7 +112,7 @@ saa_aug_data |>
 
 ## Use of instrument
 
-To analyse the samples of cerebrospinal fluid in the SAA, different equipment was used.
+To analyse the samples of cerebrospinal fluid in the SAA, different equipment was used. In project 155 instrument 2, 4 and 6 were equally used. During project 237 these instruments are also used frequently in addition to instrument 5.
 
 ```{r}
 instruments_used <- saa_aug_data |>
@@ -134,3 +134,7 @@ instruments_used <- saa_aug_data |>
 instruments_used
 
 ```
+
+## High and low ranges of key values
+
+To get a better understanding of the ranges of key values (fmax, auc, ttt) we look at a few examples at each end of the range.
