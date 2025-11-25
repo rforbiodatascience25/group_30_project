@@ -1,7 +1,15 @@
 ---
 title: "00_all"
-format: html
+format: 
+  html: 
+    self-contained: true  # indlejrer alle figurer, ingen _files-mapper
+    output-dir: ../result
 ---
+
+```{r}
+library(here)
+library(fs)
+```
 
 # 01_load
 
@@ -31,4 +39,14 @@ format: html
 # 06_analysis_2
 
 ```{r, child="06_analysis_2.qmd"}
+```
+
+Render it:
+
+```{r}
+old_dir <- here("R", "00_all.html")
+new_dir <- here("results", "00_all.html")
+if (file_exists(old_dir)) {
+file_move(old_dir, new_dir)
+}
 ```
