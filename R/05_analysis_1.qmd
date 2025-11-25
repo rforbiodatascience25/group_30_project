@@ -14,29 +14,27 @@ library(tidyverse)
 load the augmented data from file:
 
 ```{r}
-saa_aug_data <- read_tsv("../data/03_aug_data.tsv")
+aug_data <- read_tsv("../data/03_aug_data.tsv")
 
 ```
 
+To estimate
+
 ```{r}
-# Create a summary table comparing the two status columns
-
-status_comparison <- saa_aug_data %>%
-  group_by(project, patient_number) %>%
-    summarise(
-    given_status = first(saa_result),
-    calculated_status = first(saa_custom),
-    match = given_status == calculated_status,
-    .groups = "drop"
+aug_data |>
+  filter(saa_result != saa_custom) |>
+  select(project,
+         patient_number,
+         saa_result,
+         saa_custom,
+         rep,
+         fmax
+         ) |>
+  pivot_wider(
+    names_from = rep,
+    values_from = fmax,
+    names_prefix = "rep_"
     )
-
-# Show mismatches only
-
-status_mismatches <- status_comparison %>%
-  filter(!match)
-
-status_comparison
-status_mismatches
 
 ```
 

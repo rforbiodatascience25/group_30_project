@@ -174,24 +174,6 @@ aug_data <- aug_data |>
 
 ```
 
-```{r}
-which(is.na(aug_data$saa_custom))
-```
-
-```{r}
-aug_data |>
-  count(saa_custom)
-```
-
-```{r}
-aug_data |>
-  count(saa_result)
-```
-
-```{r}
-all(aug_data$saa_result == aug_data$saa_custom)
-```
-
 Declaring datatype in some columns
 
 ```{r}
