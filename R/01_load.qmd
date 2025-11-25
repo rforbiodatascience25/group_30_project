@@ -1,6 +1,8 @@
 ---
 title: "01_load"
 format: html
+execute:
+  standalone: true
 ---
 
 ```{r}

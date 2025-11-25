@@ -214,9 +214,8 @@ write_tsv(aug_data, "../data/03_aug_data.tsv")
 
 ```{r}
 old_dir <- here("R", "02_augment.html")
-new_dir <- here("results", "01_augment.html")
+new_dir <- here("results", "02_augment.html")
 if (file_exists(old_dir)) {
 file_move(old_dir, new_dir)
 }
 ```
-

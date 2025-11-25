@@ -4,6 +4,8 @@ project:
 format:
   html:
     self-contained: true  # indlejrer alle figurer, ingen _files-mapper
-    output-dir: here("/results")
+
+commands:
+  post-render: "cleanup.R"
 
 editor: visual
