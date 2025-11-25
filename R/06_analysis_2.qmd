@@ -7,6 +7,8 @@ format: html
 #| message: false
 
 library(tidyverse)
+library(here)
+library(fs)
 
 aug_data <- read_tsv("../data/03_aug_data.tsv")
 
@@ -63,7 +65,7 @@ The goal of this analysis is therefore to evaluate the precision, consistency, a
 
 ## Comparison of Overall Fmax Levels
 
-***Project 237 consistently shows higher mean Fmax values than Project 155. This difference is expected: shorter assays accumulate fluorescence more rapidly, while longer assays distribute aggregation over many more cycles, resulting in lower peak values.***
+***sig noget om det***
 
 ```{r}
 
@@ -428,3 +430,13 @@ Across all analyses, mean Fmax, replicate medians, IQR, SD, and instrument compa
 -   Greater instrument-dependent variation
 
 -   Overall poorer measurement precision
+
+## Moving html files in the right place
+
+```{r}
+old_dir <- here("R", "06_analysis_2.html")
+new_dir <- here("results", "06_analysis_2.html")
+if (file_exists(old_dir)) {
+file_move(old_dir, new_dir)
+}
+```
