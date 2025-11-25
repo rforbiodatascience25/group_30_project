@@ -88,10 +88,11 @@ The distribution of each patient's latest experiment was plotted. Most of the da
 multiple_experiments <- saa_aug_data |>
   arrange(desc(days_from_baseline)) |>
   distinct(patient_number, .keep_all = TRUE) |>
-  ggplot(mapping = aes(x = clinical_event)) + 
+  ggplot(mapping = aes(x = clinical_event,
+                       fill = clinical_event)) + 
   geom_bar() + 
+  scale_fill_manual(values = c("#3C3C68","#627634","#545E75","#C03221", "#94BFBE","#7A1F15","#da9283","#474B24","#474B24","#474B24","#474B24")) +
   theme_custom + 
-  theme(legend.position = "bottom") + 
   labs(title = "Latest observation",
        subtitle = "The latest observation of each patient",
        x = "Latest Observation",
