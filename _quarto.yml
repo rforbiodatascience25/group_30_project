@@ -4,6 +4,6 @@ project:
 format:
   html:
     self-contained: true  # indlejrer alle figurer, ingen _files-mapper
-    output-dir: ../results
+    output-dir: here("/results")
 
 editor: visual
