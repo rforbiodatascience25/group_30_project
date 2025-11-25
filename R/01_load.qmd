@@ -9,8 +9,6 @@ execute:
 #| message: false
 
 library("tidyverse")
-library(here)
-library(fs)
 ```
 
 ```{r}

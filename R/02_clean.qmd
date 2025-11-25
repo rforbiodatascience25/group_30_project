@@ -7,8 +7,6 @@ format: html
 #| message: false
 
 library(tidyverse)
-library(here)
-library(fs)
 ```
 
 # Loading the raw data

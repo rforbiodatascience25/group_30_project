@@ -9,8 +9,6 @@ format: html
 #| message: false
 
 library(tidyverse)
-library(here)
-library(fs)
 
 aug_data <- read_tsv("../data/03_aug_data.tsv")
 

@@ -3,13 +3,7 @@ title: "00_all"
 format: 
   html: 
     self-contained: true  # indlejrer alle figurer, ingen _files-mapper
-    output-dir: ../result
 ---
-
-```{r}
-library(here)
-library(fs)
-```
 
 # 01_load
 
