@@ -2,7 +2,10 @@
 title: "Presentation"
 format:
   revealjs: 
-    theme: dark
+    theme: white
+    slide-number: true
+    center: false
+    scrollable: true
 ---
 
 ## Introduction
@@ -43,7 +46,21 @@ Billeder ind ved "../results/PLOTNAVN-1.png"
 
 (high/low range af instrumenter og plot af instrumenter antal)
 
-![](../results/06_key_plot_1-1.png){width="70%"}
+## Inconsistencies in the two projects
+
+**Replications**
+
+![](../results/06_fmax_by_rep.png)
+
+![](../results/06_sd_by_project.png)
+
+## Inconsistencies in the two projects
+
+**Instruments and replications**
+
+![](../results/06_fmax_raw_rep_inst.png)
+
+![](../results/06_sd_by_instrument.png)
 
 ## Over tid patienter
 
