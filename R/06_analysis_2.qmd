@@ -97,7 +97,10 @@ p_fmax_mean_dist <- aug_data |>
 ```
 
 ```{r 06_key_plot_1}
-ggsave(filename = "../results/06_fmax_mean_dist.png")
+ggsave(filename = "../results/06_fmax_mean_dist.png",
+       width = 10,  
+       height = 5)  
+
 p_fmax_mean_dist
 ```
 
@@ -139,7 +142,10 @@ p_fmax_by_rep <- ggplot(aug_data, aes(
 ```
 
 ```{r 06_key_plot_2}
-ggsave(filename = "../results/06_fmax_by_rep.png")
+ggsave(filename = "../results/06_fmax_by_rep.png",
+       width = 10,  
+       height = 5)   
+
 p_fmax_by_rep
 ```
 
@@ -215,7 +221,10 @@ p_sd_by_project <- sd_saa_data |>
 ```
 
 ```{r 06_key_plot_3}
-ggsave(filename = "../results/06_sd_by_project.png")
+ggsave(filename = "../results/06_sd_by_project.png",
+       width = 10,  
+       height = 5)
+
 p_sd_by_project
 ```
 
@@ -275,7 +284,10 @@ p_sd_by_instrument <- sd_saa_data |>
 ```
 
 ```{r 06_key_plot_4}
-ggsave(filename = "../results/06_sd_by_instrument.png")
+ggsave(filename = "../results/06_sd_by_instrument.png",
+       width = 10,  
+       height = 5)
+
 p_sd_by_instrument
 ```
 
@@ -342,7 +354,11 @@ p_fmax_raw_rep_inst <- aug_data |>
 ```
 
 ```{r 06_key_plot_5}
-ggsave(filename = "../results/06_fmax_raw_rep_inst.png")
+ggsave(filename = "../results/06_fmax_raw_rep_inst.png",
+       width = 10,  
+       height = 5)   
+
+
 p_fmax_raw_rep_inst
 ```
 
