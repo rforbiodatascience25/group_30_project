@@ -222,7 +222,7 @@ p_sd_by_project <- sd_saa_data |>
 
 ```{r 06_key_plot_3}
 ggsave(filename = "../results/06_sd_by_project.png",
-       width = 10,  
+       width = 12,  
        height = 5)
 
 p_sd_by_project
