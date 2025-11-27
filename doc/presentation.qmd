@@ -171,7 +171,7 @@ Evaluate difference in precision and consistencies: Replicates
 
 ### Standard deviation
 
-![](../results/06_sd_by_project.png){width="800"}
+![](../results/06_sd_by_project.png){width="2000"}
 
 | Project | Mean SD | Median SD | IQR    |
 |---------|---------|-----------|--------|
@@ -182,7 +182,6 @@ Evaluate difference in precision and consistencies: Replicates
 ## Inconsistencies in the two projects: Instruments
 
 ![](../results/06_sd_by_instrument.png){width="3200"}
-
 
 ## Patients over time
 

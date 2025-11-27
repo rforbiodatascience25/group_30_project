@@ -223,7 +223,7 @@ p_sd_by_project <- sd_saa_data |>
 ```{r 06_key_plot_3}
 ggsave(filename = "../results/06_sd_by_project.png",
        width = 12,  
-       height = 5)
+       height = 4.7)
 
 p_sd_by_project
 ```
@@ -305,8 +305,8 @@ p_sd_by_instrument <- sd_saa_data |>
 
 ```{r 06_key_plot_4}
 ggsave(filename = "../results/06_sd_by_instrument.png",
-       width = 10,  
-       height = 5)
+       width = 11,  
+       height = 7)
 
 p_sd_by_instrument
 ```
