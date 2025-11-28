@@ -42,3 +42,33 @@ saa_rule_237 <- function(column) {
   
   NA_character_
 }
+
+low_range <- function(df, column, test_size) {
+  df2 <- df |> 
+    filter(project == 155) |>
+    arrange({{column}}) |>
+    pull({{column}})
+  mean_low_155 <- mean(df2[1:test_size], na.rm = TRUE)
+  
+  df3 <- df |>
+    filter(project == 237) |>
+    arrange({{column}}) |>
+    pull({{column}})
+  mean_low_237 <- mean(df3[1:test_size], na.rm = TRUE)
+  return(list(mean_low_155, mean_low_237))
+}
+
+high_range <- function(df, column, test_size) {
+  df2 <- df |> 
+    filter(project == 155) |>
+    arrange(desc({{column}})) |>
+    pull({{column}})
+  mean_high_155 <- mean(df2[1:test_size], na.rm = TRUE)
+  
+  df3 <- df |>
+    filter(project == 237) |>
+    arrange(desc({{column}})) |>
+    pull({{column}})
+  mean_high_237 <- mean(df3[1:test_size], na.rm = TRUE)
+  return(list(mean_high_155, mean_high_237))
+}
