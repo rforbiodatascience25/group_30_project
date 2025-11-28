@@ -97,7 +97,10 @@ p_fmax_mean_dist <- aug_data |>
 ```
 
 ```{r 06_key_plot_1}
-ggsave(filename = "../results/06_fmax_mean_dist.png")
+ggsave(filename = "../results/06_fmax_mean_dist.png",
+       width = 10,  
+       height = 5)  
+
 p_fmax_mean_dist
 ```
 
@@ -112,7 +115,7 @@ Means alone can't be used to compare the consistency of the two assays. To do th
 ```{r}
 p_fmax_by_rep <- ggplot(aug_data, aes(
     x = fmax, 
-    y = factor(rep), 
+    y = rep, 
     color = project, 
     fill = project
   )) +
@@ -139,7 +142,10 @@ p_fmax_by_rep <- ggplot(aug_data, aes(
 ```
 
 ```{r 06_key_plot_2}
-ggsave(filename = "../results/06_fmax_by_rep.png")
+ggsave(filename = "../results/06_fmax_by_rep.png",
+       width = 10,  
+       height = 5)   
+
 p_fmax_by_rep
 ```
 
@@ -215,7 +221,10 @@ p_sd_by_project <- sd_saa_data |>
 ```
 
 ```{r 06_key_plot_3}
-ggsave(filename = "../results/06_sd_by_project.png")
+ggsave(filename = "../results/06_sd_by_project.png",
+       width = 12,  
+       height = 4.7)
+
 p_sd_by_project
 ```
 
@@ -240,6 +249,26 @@ Summary statistics:
 The 150-hour assay (155) has 2–4 times higher replicate variability than the 24-hour assay (237). This is one of the most important quality results in the entire analysis.
 
 ## Instrument-Specific Variability
+
+```{r}
+instruments_used <- aug_data |>
+  filter(instrument %in% c(2, 4, 6)) |> 
+  ggplot(mapping = aes(x = project)) + 
+  geom_bar(mapping = aes(fill = instrument),
+           position = "fill") + 
+  scale_fill_manual(breaks = c("2","4","5","6","9","10"),
+                    values = c("#da9283","#3C3C68","#C03221","#627634","#7A1F15","#94BFBE"),
+                    name = "Instrument",
+                    guide = guide_legend(nrow = 1)) +
+  theme_custom + 
+  theme(legend.position = "bottom") + 
+  labs(title = "Ratio used instruments 2 4 and 6 ",
+       subtitle = "The instrument used to analyze each observation",
+       x = "Project",
+       y = "Ratio")
+
+instruments_used
+```
 
 We next examined whether any fluorescence reader (instruments 2, 4, 6) contributed disproportionately to the SD.
 
@@ -275,7 +304,10 @@ p_sd_by_instrument <- sd_saa_data |>
 ```
 
 ```{r 06_key_plot_4}
-ggsave(filename = "../results/06_sd_by_instrument.png")
+ggsave(filename = "../results/06_sd_by_instrument.png",
+       width = 11,  
+       height = 7)
+
 p_sd_by_instrument
 ```
 
@@ -342,7 +374,11 @@ p_fmax_raw_rep_inst <- aug_data |>
 ```
 
 ```{r 06_key_plot_5}
-ggsave(filename = "../results/06_fmax_raw_rep_inst.png")
+ggsave(filename = "../results/06_fmax_raw_rep_inst.png",
+       width = 10,  
+       height = 5)   
+
+
 p_fmax_raw_rep_inst
 ```
 
@@ -427,5 +463,3 @@ Across all analyses, mean Fmax, replicate medians, IQR, SD, and instrument compa
 -   Greater instrument-dependent variation
 
 -   Overall poorer measurement precision
-
--   
