@@ -3,15 +3,13 @@ title: "05_analysis_1"
 format: html
 ---
 
-## Load libraries
-
 ```{r}
 #| message: false
 
 library(tidyverse)
 ```
 
-## Load the augmented data from file:
+## Loading the augmented data
 
 ```{r}
 aug_data <- read_tsv("../data/03_aug_data.tsv")
@@ -57,7 +55,7 @@ aug_data |>
 
 ```
 
-As seen above 9 patients have a negative saa_result, whereas when the column were recreated the results were inconclusive. When looking at the criteria given from PPMI the result should have been inconclusive we found.
+As seen above some patients have a negative saa_result, whereas when the column were recreated the results were inconclusive. When looking at the criteria given from PPMI the result should have been inconclusive we found.
 
 |              |                                            |
 |--------------|--------------------------------------------|
@@ -73,7 +71,9 @@ A visualization can be seen below:
 ```{r}
 aug_data |>
   mutate(match = saa_result == saa_custom) |>
-  ggplot(aes(x = match, fill = match)) +
+  ggplot(aes(x = match, 
+             fill = match)
+         ) +
   geom_bar() +
   scale_fill_manual(values = c("#da9283","#3C3C68")) +
   facet_wrap(~ project) +
@@ -83,4 +83,7 @@ aug_data |>
        x = "Match",
        y = "Count")
 
+ggsave(filename = "../results/05_quality_check.png",
+       width = 10,  
+       height = 5)
 ```
