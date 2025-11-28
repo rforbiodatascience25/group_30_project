@@ -83,4 +83,7 @@ aug_data |>
        x = "Match",
        y = "Count")
 
+ggsave(filename = "../results/05_quality_check.png",
+       width = 10,  
+       height = 5)
 ```
