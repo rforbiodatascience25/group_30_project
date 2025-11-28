@@ -12,9 +12,9 @@ library(tidyverse)
 aug_data <- read_tsv("../data/03_aug_data.tsv")
 
 #making sure that the columns is the right type
+
 source("08_proj_func.R")
 aug_data <- char_type_col(aug_data)
-
 ```
 
 ## Defining colors and theme

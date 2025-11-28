@@ -21,6 +21,8 @@ raw_data <- read_tsv("../data/01_dat_load.tsv")
 
 ### Selecting only PD patients:
 
+SWEDD is an outdated ID, mentioned in the PPMI data guide, and we will not be using the data from these patients.
+
 ```{r}
 tidy_data <- raw_data |>
   filter(COHORT != "SWEDD")
