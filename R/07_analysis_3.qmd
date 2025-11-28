@@ -46,3 +46,18 @@ ggsave(filename = "../results/07_fmax_over_time.png")
 
   
 ```
+
+```{r}
+aug_data |> 
+    ggplot(aes(x = days_from_baseline, 
+               y = fmax_mean)) +
+  geom_point(aes(color = saa_custom,
+                 shape = as.factor(project))) +
+  labs(title = "Mean fmax over time",
+       x = "Days from baseline",
+       y = "Mean fmax (RFU)",
+       shape = "Project",
+       color = "SAA status") +
+  theme_minimal() 
+```
+
