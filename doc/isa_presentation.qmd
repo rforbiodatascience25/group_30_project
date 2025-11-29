@@ -212,6 +212,12 @@ Question: Does the signal become stronger further into disease progression?
 
 ![](images/07_fmax_over_time_lm.png)
 
+-   Only for project 237 above
+
+    -   Not necessarily comparable fmax mean values
+
+    -   Project 155 only had close to baseline measurements
+
 -   No connection
 
 -   Note: Days from baseline is a not actually a measure of disease progression...
