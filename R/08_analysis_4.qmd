@@ -20,7 +20,7 @@ aug_data <- read_tsv("../data/03_dat_aug.tsv")
 ## Defining colors and theme
 
 ```{r}
-my_cols <- c("#3C3C68","#C03221","#94BFBE","#545E75", "#627634", "#7A1F15",
+my_cols <- c("#3C3C68","#C03221","#6D8E64","#94BFBE","#545E75",  "#7A1F15",
              "#da9283" , "#474B24")
 
 theme_custom <- theme_minimal(base_size = 14) +
@@ -71,8 +71,14 @@ aug_data |>
        x = "Days from baseline",
        y = "Mean fmax (RFU)",
        shape = "Project",
-       color = "SAA status") +
-  theme_minimal()
+       color = "SAA status",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)") +
+  
+  scale_color_manual(values = my_cols) +
+  scale_fill_manual(values = my_cols) +
+  
+  theme_minimal() +
+  theme_custom
 
   ggsave(filename = "../results/08_fmax_over_time.png",
        height = 5,
@@ -113,7 +119,8 @@ aug_data |>
        x = "Days from baseline",
        y = "Mean fmax (RFU)",
        shape = "Project",
-       color = "SAA status") +
+       color = "SAA status",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)") +
   
   scale_color_manual(values = my_cols) +
   scale_fill_manual(values = my_cols) +
@@ -133,11 +140,16 @@ resid <- filter(aug_data, project == 237) |>
 ggplot(resid, aes(days_from_baseline, 
                   resid)) + 
   geom_ref_line(h = 0) +
-  geom_point() +
+  geom_point(color = "#545E75") +
   theme_minimal() +
   
   labs(title = "Residual plot for lm of fmax over time for project 237",
-       x = "Days from baseline")
+       x = "Days from baseline",
+       y = "Resid",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)") +
+  
+  theme_custom +
+  scale_y_continuous(labels = scales::label_comma())
 
 ggsave(filename = "../results/08_fmax_over_time_resid.png",
        height = 5,
@@ -158,12 +170,16 @@ aug_data |>
     ggplot(aes(x = days_from_baseline, 
                y = fmax_mean)) +
   
+  geom_line(color = "gray") +
+  
   geom_point(aes(color = saa_result,
                  shape = as.factor(project))) +
   
-  geom_line(color = "gray") +
   facet_wrap(~ patient_number) +
   theme_minimal() +
+  
+  scale_color_manual(values = my_cols) +
+  scale_fill_manual(values = my_cols) +
   
   scale_x_continuous(n.breaks = 3) +
   
@@ -171,7 +187,10 @@ aug_data |>
        x = "Days from baseline",
        y = "Mean fmax (RFU)",
        shape = "Project",
-       color = "SAA status")
+       color = "SAA status",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)") +
+  
+  theme_custom
 
 ggsave(filename = "../results/08_fmax_over_time_top12.png",
        height = 5,
@@ -192,15 +211,24 @@ aug_data |>
   filter(patient_number %in% sample$patient_number) |> 
   ggplot(aes(x = days_from_baseline, 
                y = fmax_mean)) +
+  
+  geom_line(color = "gray") +
+
   geom_point(aes(color = saa_result,
                  shape = as.factor(project))) +
-  geom_line(color = "gray") +
   theme_minimal() +
   scale_x_continuous(n.breaks = 3) +
   facet_wrap(~ patient_number) +
+  scale_color_manual(values = my_cols) +
+  scale_fill_manual(values = my_cols) +
+  
   labs(title = "Mean fmax over time for random patients with the most visits",
        x = "Days from baseline",
        y = "Mean fmax (RFU)",
        shape = "Project",
-       color = "SAA status")
+       color = "SAA status",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)") +
+  
+  theme_custom
 ```
+
