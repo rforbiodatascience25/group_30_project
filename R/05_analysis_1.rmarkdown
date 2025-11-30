@@ -9,7 +9,11 @@ format: html
 library(tidyverse)
 ```
 
+
+
 ## Loading the augmented data
+
+
 
 ```{r}
 aug_data <- read_tsv("../data/03_aug_data.tsv")
@@ -35,9 +39,13 @@ aug_data <- char_type_col(aug_data)
     )
 ```
 
+
+
 ## Performing the quality check of saa_result
 
 During the augmentation a new column was made using the same criteria published by PPMI used to create their saa_result column. We check for any variations between their positive/negative/inconclusive results and the new column.
+
+
 
 ```{r}
 mismatches_saa_results <- aug_data |>
@@ -59,6 +67,8 @@ mismatches_saa_results <- aug_data |>
 mismatches_saa_results
 ```
 
+
+
 As seen above some patients have a negative saa_result, whereas when the column were recreated the results were inconclusive. When looking at the criteria given from PPMI the result should have been inconclusive we found.
 
 |              |                                            |
@@ -71,6 +81,8 @@ As seen above some patients have a negative saa_result, whereas when the column 
 In most cases it looks like they decided to assign the negative value if one of the fmax repetition had a much lower value even if 2 replicates have fmax above 5000 RFU.
 
 A visualization can be seen below:
+
+
 
 ```{r}
 aug_data |>
@@ -92,7 +104,11 @@ ggsave(filename = "../results/05_quality_check.png",
        height = 5)
 ```
 
+
+
 To visualize the 7 mismatches:
+
+
 
 ```{r}
 mismatched_saa <- aug_data |>
@@ -135,7 +151,11 @@ ggsave(filename = "../results/05_mismatched_saa_plot.png",
 mismatched_saa_plot
 ```
 
+
+
 log plot:
+
+
 
 ```{r}
 mismatched_saa_plot_log <- ggplot(mismatched_saa, aes(x = rep, 
@@ -173,7 +193,11 @@ ggsave(filename = "../results/05_mismatched_saa_plot_log.png",
 mismatched_saa_plot_log
 ```
 
+
+
 There is maybe an extra criteria
+
+
 
 ```{r}
 mismatched_saa |> 
@@ -209,3 +233,4 @@ aug_data |>
             .by = patient_number) |> 
   arrange(fmax)
 ```
+

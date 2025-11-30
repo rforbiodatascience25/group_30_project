@@ -1,5 +1,5 @@
 ---
-title: "06_analysis_2"
+title: "07_analysis_2_ny"
 format: html
 ---
 
@@ -459,4 +459,4 @@ Across all analyses, mean Fmax, replicate medians, IQR, SD, and instrument compa
 
 -   **Instrument effects**: Are present but small compared with protocol effects. The differences is project based, not instrument based.
 
--   **Project 155’s 150-hour assay**: Shows broad variability and inconsistent replicate behavior, reducing precision.
+-   Project 237 seems to be more consistent, but because of their overlaps in standard deviation, it is hard to make a strong conclusion.
