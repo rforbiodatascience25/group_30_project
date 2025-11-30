@@ -115,6 +115,8 @@ format:
 
 -   2 Projects using SAA (α-synuclein seed amplification assays)
 
+-   24h versus 150h
+
 <br>
 
 **General focus:**
