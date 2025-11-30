@@ -5,5 +5,5 @@
 ._raw
 .data
 *.Rproj
-
 /.quarto/
+**/*.quarto_ipynb

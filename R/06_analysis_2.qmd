@@ -59,7 +59,7 @@ The goal of this analysis is therefore to evaluate the precision, consistency, a
 
 ## Comparison of Overall Fmax Levels
 
-***sig noget om det***
+To illustrate the point stated above we have created the plot below. Here we can see very different absolute Fmax values between the groups, but a very similar distribution and shape of the graph. Indicating a similarity in the behavior of each data set.
 
 ```{r}
 p_fmax_mean_dist <- aug_data |> 
