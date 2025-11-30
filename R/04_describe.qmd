@@ -189,7 +189,7 @@ instruments_used
 To get a better understanding of the ranges of key values (fmax, auc, ttt) we look at a few examples at each end of the spectrum.
 
 ```{r}
-source("08_proj_func.R")
+source("09_proj_func.R")
 
 # The function returns 2 values: one from project 155 and one from 237:
 low_range(aug_data, fmax, 50)
@@ -198,7 +198,7 @@ low_range(aug_data, ttt, 50)
 ```
 
 ```{r}
-source("08_proj_func.R")
+source("09_proj_func.R")
 
 # The function returns 2 values: one from project 155 and one from 237:
 high_range(aug_data, fmax, 50)
