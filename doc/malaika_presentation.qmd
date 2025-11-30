@@ -268,7 +268,7 @@ Question: Does the signal become stronger further into disease progression?
 ::: panel-tabset
 ### Attempt at linear model
 
-![](images/08_fmax_over_time_lm.png)
+![](../results/08_fmax_over_time_lm.png)
 
 -   Only for project 237 above
 
@@ -282,11 +282,11 @@ Question: Does the signal become stronger further into disease progression?
 
 ### Residual plot
 
-![](images/08_fmax_over_time_resid.png)
+![](../results/08_fmax_over_time_resid.png)
 
 ### Subset of patients
 
-![](images/08_fmax_over_time_top12.png)
+![](../results/08_fmax_over_time_top12.png)
 
 -   Patient variation, if any connection at all
 

@@ -130,7 +130,7 @@ aug_data |>
 
 ggsave(filename = "../results/08_fmax_over_time_lm.png",
        height = 5,
-       width = 10)
+       width = 12)
 ```
 
 ```{r}
@@ -194,7 +194,7 @@ aug_data |>
 
 ggsave(filename = "../results/08_fmax_over_time_top12.png",
        height = 5,
-       width = 10)
+       width = 12)
 ```
 
 This last bit of code allows looking at a random sample from the top 100 of patients with the most visits.
@@ -231,4 +231,3 @@ aug_data |>
   
   theme_custom
 ```
-

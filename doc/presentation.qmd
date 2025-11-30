@@ -50,11 +50,11 @@ format:
 
  /* skriftstørrelse på tabellerne */
 .reveal table {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .reveal table th {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 /*afstand mellem tabeller */
@@ -106,18 +106,18 @@ format:
 
 ## Introduction
 
--   Presynaptic neuronal protein alpha-Synuclein overproduction and misfolding leads to aggregation between nerve cells.
+-   Presynaptic neuronal protein alpha-Synuclein
 
--   This inhibits the transmission excessively, causing signals in the brain to become disrupted like in PD.
+-   Aggregation between nerve cells -\> inhibition of transmission
 
--   Clinical trials are trying to find a correlation between -Synuclein aggregates and PD-diagnosis by SAA (α-synuclein seed amplification assays) and cerebrospinal fluid.
+-   2 Projects using SAA (α-synuclein seed amplification assays)
 
 <br>
 
-**Technical focus:**
+**General focus:**
 
 ::: pf-box
-Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s disease? We compare fluorescence data from two PPMI projects to assess diagnostic potential.
+Does one of the methods perform better than the other, and which is one more efficient?
 :::
 
 ## Materials and Methods
@@ -126,11 +126,13 @@ Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s d
 
 -   PPMI (Parkinson's Progression Markers Initiative) database
 
--   SAA (α-synuclein seed amplification assays) and cerebrospinal fluid.
+-   3 replicates of SAA (cerebrospinal fluid)
 
--   The assay amplifies the protein and monitors the aggregation by measuring fluorescence intensity.
+-   Monitors the aggregation by measuring fluorescence intensity over time
 
--   Aggregates of the protein form a beta-sheet structure that binds to a dye, and an observed increase in fluorescence marks formation of alpha-Synuclein-aggregates. A higher fluorescence will indicate more aggregates and at a certain threshold also possible PD.
+-   Sigmoidal curve: fmax, auc, ttt
+
+-   Set of critera for positive/negative/inconclusive
 
 <br>
 
@@ -166,25 +168,77 @@ Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s d
 
 ## Methods: Augmenting
 
--   days from baseline
+-   Days from baseline
 
--   means
+    -   Calculated from rundates
+
+-   Mean of fmax for each visit
+
+-   Our own SAA_result
 
 ## Descriptive
 
--   function
+::::: columns
+::: {.column width="50%"}
+-   Two projects: 155 (150h) and 237 (24h)
+-   1300 individuals, almost 1900 observations
 
--   counts af forskellige ting (meget kort, som en overgang)
+<br>
+
+-   2 functions, overview of high/low values
+
+<br> <br>
+
+-   Frequency of instrument used
+:::
+
+::: {.column width="50%"}
+![](../results/04_project_distribution.png){width="500"}
+
+<br>
+
+![](../results/04_instruments_used.png){width="500"}
+:::
+:::::
 
 # Results
 
 ## SAA quality check
 
--   her
+:::::::: rows
+:::::: row
+::::: columns
+::: {.column width="50%"}
+-   SAA result and SAA custom quality check
+
+-   A non-mentioned criteria?
+
+-   Low fmax (200–600 RFU), huge, moderate
+
+-   Hard to know for sure
+:::
+
+::: {.column width="50%"}
+|              |                                   |
+|--------------|-----------------------------------|
+| **Result**   | **Project 155**                   |
+| Positive     | All replicates Fmax ≥ 5,000 RFU   |
+| Negative     | 0 or 1 replicate Fmax ≥ 5,000 RFU |
+| Inconclusive | 2 replicates Fmax ≥ 5,000 RFU     |
+:::
+:::::
+::::::
+
+::: row
+![](../results/05_mismatched_saa_plot_log.png){width="3000"}
+:::
+::::::::
+
+<!-- -->
 
 ## SAA results
 
--   ratio
+![](../results/07_sd_by_project.png){width="2000"}
 
 ## Overlap ting
 
@@ -192,17 +246,61 @@ Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s d
 
 ## Inconsistencies in the two projects (replicates)
 
-![](../results/06_sd_by_project.png){width="2000"}
+-   Can standard deviations in replicates say something about whether one project is better than the other?
+
+![](../results/07_sd_by_project.png){width="2000"}
 
 | Project | Mean SD | Median SD | IQR    |
 |---------|---------|-----------|--------|
 | **155** | 24,066  | 22,198    | 26,131 |
 | **237** | 10,386  | 5,662     | 6,470  |
 
+## Instruments
+
+-   Can the instruments explain some of these differences?
+
+![](../results/07_fmax_raw_rep_inst.png){width="3000"}
+
 ## Patients over time
 
--   her
+Question: Does the signal become stronger further into disease progression?
+
+::: panel-tabset
+### Attempt at linear model
+
+![](../results/08_fmax_over_time_lm.png)
+
+-   Only for project 237 above
+
+    -   Not necessarily comparable fmax mean values
+
+    -   Project 155 only had close to baseline measurements
+
+-   No connection
+
+-   Note: Days from baseline is a not actually a measure of disease progression...
+
+### Residual plot
+
+![](../results/08_fmax_over_time_resid.png)
+
+### Subset of patients
+
+![](../results/08_fmax_over_time_top12.png)
+
+-   Patient variation, if any connection at all
+
+-   We also looked at more patients
+:::
 
 # Last notes/conclusions
 
--   healthy patients
+**24-hour assay (237) vs 150-hour assay (155):**
+
+::: pf-box
+Does one of the methods perform better than the other, and which is one more efficient?
+:::
+
+-   Project **237:** Fast, accurate, clear separation, consistent
+
+-   Healthy controls for better assessment
