@@ -54,7 +54,8 @@ project_distribution <- aug_data |>
   labs(title = "Project Distribution",
        subtitle = "The distribution of observations and gender across project 155 and 237",
        x = "Project",
-       y = "Observations")
+       y = "Observations",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)")
 
 ggsave(filename = "../results/04_project_distribution.png",
        width = 10,  
@@ -116,7 +117,8 @@ result_distribution <- aug_data |>
   labs(title = "Result Distribution",
        subtitle = "The distribution of saa-result",
        x = "Project",
-       y = "Observations")
+       y = "Observations",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)")
 
 ggsave(filename = "../results/04_result_distribution.png",
        width = 10,  
@@ -141,7 +143,8 @@ multiple_experiments <- aug_data |>
   labs(title = "Latest observation",
        subtitle = "The latest observation of each patient",
        x = "Latest Observation",
-       y = "Participants")
+       y = "Participants",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)")
 
 ggsave(filename = "../results/04_multiple_experiments.png",
        width = 10,  
@@ -170,7 +173,8 @@ instruments_used <- aug_data |>
   labs(title = "Used Instrument",
        subtitle = "The instrument used to analyze each observation",
        x = "Project",
-       y = "Ratio")
+       y = "Ratio",
+       caption = "Source: PPMI (Parkinson's Progression Markers Initiative)")
 
 ggsave(filename = "../results/04_instruments_used.png",
        width = 10,  
