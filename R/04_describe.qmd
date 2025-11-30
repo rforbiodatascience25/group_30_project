@@ -75,7 +75,7 @@ patients_participants
 
 ```
 
-### Number of observations 
+### Number of observations
 
 1 observation is rep 1-3
 

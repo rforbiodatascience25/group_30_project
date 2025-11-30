@@ -61,7 +61,7 @@ saa_result_dist <- aug_data |>
   geom_bar(mapping = aes(fill = saa_result),
            position = "fill") + 
   
-  scale_fill_manual(values = c("#3C3C68","#C03221","#627634"),
+  scale_fill_manual(values = c("#7A1F15","#da9283","#94BFBE"),
                     name = "SAA result",
                     guide = guide_legend(nrow = 1)) +
   theme_custom + 
