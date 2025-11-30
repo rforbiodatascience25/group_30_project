@@ -106,18 +106,18 @@ format:
 
 ## Introduction
 
--   Presynaptic neuronal protein alpha-Synuclein overproduction and misfolding leads to aggregation between nerve cells.
+-   Presynaptic neuronal protein alpha-Synuclein
 
--   This inhibits the transmission excessively, causing signals in the brain to become disrupted like in PD.
+-   Aggregation between nerve cells -\> inhibition of transmission
 
--   Clinical trials are trying to find a correlation between -Synuclein aggregates and PD-diagnosis by SAA (α-synuclein seed amplification assays) and cerebrospinal fluid.
+-   2 Projects using SAA (α-synuclein seed amplification assays)
 
 <br>
 
-**Technical focus:**
+**General focus:**
 
 ::: pf-box
-Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s disease? We compare fluorescence data from two PPMI projects to assess diagnostic potential.
+Does one of the methods perform better than the other, and which is one more efficient?
 :::
 
 ## Materials and Methods
@@ -126,11 +126,13 @@ Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s d
 
 -   PPMI (Parkinson's Progression Markers Initiative) database
 
--   SAA (α-synuclein seed amplification assays) and cerebrospinal fluid.
+-   3 replicates of SAA (cerebrospinal fluid)
 
--   The assay amplifies the protein and monitors the aggregation by measuring fluorescence intensity.
+-   The assay amplifies the protein and monitors the aggregation by measuring fluorescence intensity over time
 
--   Aggregates of the protein form a beta-sheet structure that binds to a dye, and an observed increase in fluorescence marks formation of alpha-Synuclein-aggregates. A higher fluorescence will indicate more aggregates and at a certain threshold also possible PD.
+-   Sigmoidal curve: fmax, auc, ttt
+
+-   Set of critera for positive/negative/inconclusive
 
 <br>
 
@@ -172,9 +174,13 @@ Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s d
 
 ## Descriptive
 
--   function
+-   Two projects: 155 (150h) and 237 (24h)
 
--   counts af forskellige ting (meget kort, som en overgang)
+-   1300 individuals, almost 1900 observations
+
+-   2 functions, overview of high/low values
+
+-   Frequency of instrument used
 
 # Results
 
