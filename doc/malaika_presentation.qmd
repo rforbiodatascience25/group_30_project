@@ -238,7 +238,7 @@ Does one of the methods perform better than the other, and which is one more eff
 
 ## SAA results
 
-![](../results/06_sd_by_project.png){width="2000"}
+![](../results/07_sd_by_project.png){width="2000"}
 
 ## Overlap ting
 
@@ -248,7 +248,7 @@ Does one of the methods perform better than the other, and which is one more eff
 
 -   Can standard deviations in replicates say something about whether one project is better than the other?
 
-![](../results/06_sd_by_project.png){width="2000"}
+![](../results/07_sd_by_project.png){width="2000"}
 
 | Project | Mean SD | Median SD | IQR    |
 |---------|---------|-----------|--------|
@@ -259,7 +259,7 @@ Does one of the methods perform better than the other, and which is one more eff
 
 -   Can the instruments explain some of these differences?
 
-![](../results/06_fmax_raw_rep_inst.png){width="3000"}
+![](../results/07_fmax_raw_rep_inst.png){width="3000"}
 
 ## Patients over time
 
@@ -268,7 +268,7 @@ Question: Does the signal become stronger further into disease progression?
 ::: panel-tabset
 ### Attempt at linear model
 
-![](images/07_fmax_over_time_lm.png)
+![](images/08_fmax_over_time_lm.png)
 
 -   Only for project 237 above
 
@@ -282,11 +282,11 @@ Question: Does the signal become stronger further into disease progression?
 
 ### Residual plot
 
-![](images/07_fmax_over_time_resid.png)
+![](images/08_fmax_over_time_resid.png)
 
 ### Subset of patients
 
-![](images/07_fmax_over_time_top12.png)
+![](images/08_fmax_over_time_top12.png)
 
 -   Patient variation, if any connection at all
 

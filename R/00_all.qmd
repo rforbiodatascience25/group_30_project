@@ -34,3 +34,13 @@ format:
 
 ```{r, child="06_analysis_2.qmd"}
 ```
+
+# 07_analysis_3
+
+```{r, child="07_analysis_3.qmd"}
+```
+
+# 08_analysis_4
+
+```{r, child="08_analysis_4.qmd"}
+```
