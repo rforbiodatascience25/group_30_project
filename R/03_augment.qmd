@@ -98,7 +98,7 @@ As the two projects differ in method, they used different requirements for each.
 To prepare replicate vectors for SAA rule all three fmax from each observation is gathered in a list.
 
 ```{r}
-source("08_proj_func.R")
+source("09_proj_func.R")
 
 reps <- tidy_data |>
   group_by(patient_number, 
@@ -124,7 +124,7 @@ The two rules have been made as functions,
 Applying the functions and subsequently removing the generated fmax_reps column:
 
 ```{r}
-source("08_proj_func.R")
+source("09_proj_func.R")
 
 aug_data <- aug_data |> 
   rowwise() |> 
