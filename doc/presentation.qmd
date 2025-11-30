@@ -26,7 +26,6 @@ format:
 
 ```{=html}
 <style>
-/* tekststørrelsen på teksten i slides */
 .reveal, .reveal .slides {
   font-size: 1.40rem !important;   
 }
