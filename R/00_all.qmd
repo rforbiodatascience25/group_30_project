@@ -32,8 +32,8 @@ format:
 
 # 06_analysis_2
 
-#```{r, child="06_analysis_2.qmd"}
-#```
+```{r, child="CopyOf06_analysis_2.qmd"}
+```
 
 # 07_analysis_3
 

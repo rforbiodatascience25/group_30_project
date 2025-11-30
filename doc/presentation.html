@@ -190,11 +190,11 @@ Andreas Nielsen
 
  /* skriftstørrelse på tabellerne */
 .reveal table {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .reveal table th {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 /*afstand mellem tabeller */
@@ -246,14 +246,14 @@ Andreas Nielsen
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
 <ul>
-<li><p>Presynaptic neuronal protein alpha-Synuclein overproduction and misfolding leads to aggregation between nerve cells.</p></li>
-<li><p>This inhibits the transmission excessively, causing signals in the brain to become disrupted like in PD.</p></li>
-<li><p>Clinical trials are trying to find a correlation between -Synuclein aggregates and PD-diagnosis by SAA (α-synuclein seed amplification assays) and cerebrospinal fluid.</p></li>
+<li><p>Presynaptic neuronal protein alpha-Synuclein</p></li>
+<li><p>Aggregation between nerve cells -&gt; inhibition of transmission</p></li>
+<li><p>2 Projects using SAA (α-synuclein seed amplification assays)</p></li>
 </ul>
 <p><br></p>
-<p><strong>Technical focus:</strong></p>
+<p><strong>General focus:</strong></p>
 <div class="pf-box">
-<p>Can α-synuclein seed amplification assays (SAA) reliably detect Parkinson’s disease? We compare fluorescence data from two PPMI projects to assess diagnostic potential.</p>
+<p>Does one of the methods perform better than the other, and which is one more efficient?</p>
 </div>
 </section>
 <section id="materials-and-methods" class="slide level2">
@@ -261,9 +261,10 @@ Andreas Nielsen
 <p><strong>Materials:</strong></p>
 <ul>
 <li><p>PPMI (Parkinson’s Progression Markers Initiative) database</p></li>
-<li><p>SAA (α-synuclein seed amplification assays) and cerebrospinal fluid.</p></li>
-<li><p>The assay amplifies the protein and monitors the aggregation by measuring fluorescence intensity.</p></li>
-<li><p>Aggregates of the protein form a beta-sheet structure that binds to a dye, and an observed increase in fluorescence marks formation of alpha-Synuclein-aggregates. A higher fluorescence will indicate more aggregates and at a certain threshold also possible PD.</p></li>
+<li><p>3 replicates of SAA (cerebrospinal fluid)</p></li>
+<li><p>Monitors the aggregation by measuring fluorescence intensity over time</p></li>
+<li><p>Sigmoidal curve: fmax, auc, ttt</p></li>
+<li><p>Set of critera for positive/negative/inconclusive</p></li>
 </ul>
 <p><br></p>
 <p><strong>Methods:</strong></p>
@@ -302,16 +303,34 @@ Andreas Nielsen
 <section id="methods-augmenting" class="slide level2">
 <h2>Methods: Augmenting</h2>
 <ul>
-<li><p>days from baseline</p></li>
-<li><p>means</p></li>
+<li><p>Days from baseline</p>
+<ul>
+<li>Calculated from rundates</li>
+</ul></li>
+<li><p>Mean of fmax for each visit</p></li>
+<li><p>Our own SAA_result</p></li>
 </ul>
 </section>
 <section id="descriptive" class="slide level2">
 <h2>Descriptive</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li><p>function</p></li>
-<li><p>counts af forskellige ting (meget kort, som en overgang)</p></li>
+<li>Two projects: 155 (150h) and 237 (24h)</li>
+<li>1300 individuals, almost 1900 observations</li>
 </ul>
+<p><br></p>
+<ul>
+<li>2 functions, overview of high/low values</li>
+</ul>
+<p><br> <br></p>
+<ul>
+<li>Frequency of instrument used</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../results/04_project_distribution.png" width="600"></p>
+<p><img data-src="../results/04_instruments_used.png" width="600"></p>
+</div></div>
 </section>
 <section>
 <section id="results" class="title-slide slide level1 center">
@@ -320,16 +339,49 @@ Andreas Nielsen
 </section>
 <section id="saa-quality-check" class="slide level2">
 <h2>SAA quality check</h2>
+<div class="rows">
+<div class="row">
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li>her</li>
+<li><p>SAA result and SAA custom quality check</p></li>
+<li><p>A non-mentioned criteria?</p></li>
+<li><p>Low fmax (200–600 RFU), huge, moderate</p></li>
+<li><p>Hard to know for sure</p></li>
 </ul>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td><strong>Result</strong></td>
+<td><strong>Project 155</strong></td>
+</tr>
+<tr class="even">
+<td>Positive</td>
+<td>All replicates Fmax ≥ 5,000 RFU</td>
+</tr>
+<tr class="odd">
+<td>Negative</td>
+<td>0 or 1 replicate Fmax ≥ 5,000 RFU</td>
+</tr>
+<tr class="even">
+<td>Inconclusive</td>
+<td>2 replicates Fmax ≥ 5,000 RFU</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="row">
+<p><img data-src="../results/05_mismatched_saa_plot_log.png" width="3000"></p>
+</div>
+</div>
+<!-- -->
 </section>
 <section id="saa-results" class="slide level2">
 <h2>SAA results</h2>
-<ul>
-<li>ratio</li>
-</ul>
-</section>
+
+<img data-src="../results/06_saa_result_dist.png" class="r-stretch"></section>
 <section id="overlap-ting" class="slide level2">
 <h2>Overlap ting</h2>
 <ul>
@@ -338,8 +390,11 @@ Andreas Nielsen
 </section>
 <section id="inconsistencies-in-the-two-projects-replicates" class="slide level2">
 <h2>Inconsistencies in the two projects (replicates)</h2>
+<ul>
+<li>Can standard deviations in replicates say something about whether one project is better than the other?</li>
+</ul>
 
-<img data-src="../results/06_sd_by_project.png" width="2000" class="r-stretch"><table class="caption-top">
+<img data-src="../results/07_sd_by_project.png" width="2000" class="r-stretch"><table class="caption-top">
 <thead>
 <tr class="header">
 <th>Project</th>
@@ -364,17 +419,55 @@ Andreas Nielsen
 </tbody>
 </table>
 </section>
+<section id="instruments" class="slide level2">
+<h2>Instruments</h2>
+<ul>
+<li>Can the instruments explain some of these differences?</li>
+</ul>
+
+<img data-src="../results/07_fmax_raw_rep_inst.png" width="3000" class="r-stretch"></section>
 <section id="patients-over-time" class="slide level2">
 <h2>Patients over time</h2>
+<p>Question: Does the signal become stronger further into disease progression?</p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Attempt at linear model</a></li><li><a href="#tabset-1-2">Residual plot</a></li><li><a href="#tabset-1-3">Subset of patients</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p><img data-src="../results/08_fmax_over_time_lm.png"></p>
 <ul>
-<li>her</li>
+<li><p>Only for project 237 above</p>
+<ul>
+<li><p>Not necessarily comparable fmax mean values</p></li>
+<li><p>Project 155 only had close to baseline measurements</p></li>
+</ul></li>
+<li><p>No connection</p></li>
+<li><p>Note: Days from baseline is a not actually a measure of disease progression…</p></li>
 </ul>
+</div>
+<div id="tabset-1-2">
+<p><img data-src="../results/08_fmax_over_time_resid.png"></p>
+</div>
+<div id="tabset-1-3">
+<p><img data-src="../results/08_fmax_over_time_top12.png"></p>
+<ul>
+<li><p>Patient variation, if any connection at all</p></li>
+<li><p>We also looked at more patients</p></li>
+</ul>
+</div>
+</div>
+</div>
 </section></section>
 <section id="last-notesconclusions" class="title-slide slide level1 center">
 <h1>Last notes/conclusions</h1>
+<p><strong>24-hour assay (237) vs 150-hour assay (155):</strong></p>
+<div class="pf-box">
+<p>Does one of the methods perform better than the other, and which is one more efficient?</p>
+</div>
 <ul>
-<li>healthy patients</li>
+<li><p>Project <strong>237:</strong> Fast, accurate, clear separation, consistent</p></li>
+<li><p>Healthy controls for better assessment</p></li>
 </ul>
+<p>s</p>
 
 </section>
     </div>

@@ -193,11 +193,10 @@ Does one of the methods perform better than the other, and which is one more eff
 :::
 
 ::: {.column width="50%"}
-![](../results/04_project_distribution.png){width="500"}
+![](../results/04_project_distribution.png){width="600"}
 
-<br>
 
-![](../results/04_instruments_used.png){width="500"}
+![](../results/04_instruments_used.png){width="600"}
 :::
 :::::
 
@@ -238,7 +237,7 @@ Does one of the methods perform better than the other, and which is one more eff
 
 ## SAA results
 
-![](../results/07_sd_by_project.png){width="2000"}
+![](../results/06_saa_result_dist.png)
 
 ## Overlap ting
 
@@ -305,4 +304,3 @@ Does one of the methods perform better than the other, and which is one more eff
 
 -   Healthy controls for better assessment
 
-s

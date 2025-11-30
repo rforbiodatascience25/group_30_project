@@ -59,7 +59,7 @@ project_distribution <- aug_data |>
 
 ggsave(filename = "../results/04_project_distribution.png",
        width = 10,  
-       height = 5)
+       height = 6)
 
 project_distribution
 ```
@@ -178,7 +178,7 @@ instruments_used <- aug_data |>
 
 ggsave(filename = "../results/04_instruments_used.png",
        width = 10,  
-       height = 5)
+       height = 6)
 
 instruments_used
 
