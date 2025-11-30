@@ -1,0 +1,109 @@
+---
+title: "a-Synuclein Aggregates in Parkinson’s Disease"
+
+subtitle: "SAA Analysis from PPMI Projects 155 & 237"
+
+author: 
+  - name: "Malaika Khiljee"
+  - name: "Karolina Nordkamp"
+  - name: "Isabella Christoffersen"
+  - name: "Andreas Nielsen"
+
+date: "2 December 2025"
+
+format:
+  revealjs: 
+    theme: simple
+    slide-number: true
+    center: false
+    scrollable: true
+    transition: fade
+    transition-speed: fast
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+```{=html}
+<style>
+/* tekststørrelsen på teksten i slides */
+.reveal, .reveal .slides {
+  font-size: 1.40rem !important;   
+}
+
+/* kode-font større */
+.reveal pre code {
+  font-size: 1.1rem !important;
+  line-height: 1.2 !important;
+}
+
+
+/* TIL TABELLER! */   
+
+.reveal .slides section table {
+  width: 100% !important;                   /* gør så at tabellen fylder hele slidet */
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: 1px solid #999 !important;         /* gør så at der er kant om tabel */
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+ /* skriftstørrelse på tabellerne */
+.reveal table {
+  font-size: 1.2rem;
+}
+
+.reveal table th {
+  font-size: 1.1rem;
+}
+
+/*afstand mellem tabeller */
+.reveal .slides section table + table {
+  margin-top: 2rem !important;   /* justér som du vil */
+}
+
+/* venstrejusteret tabel */
+.reveal .slides section table {
+  margin-left: 0 !important;     
+  margin-right: auto !important;
+  display: table !important;
+  text-align: left !important;  
+}
+
+/*ændrer i tabel header*/
+.reveal .slides section table th {
+  background: #b6b6cf !important;
+  font-weight: 700 !important;
+  padding: 10px 12px !important;
+  border-bottom: 1px solid #bbb !important;
+  text-align: left !important;
+}
+
+/*ændrer i tabel celler*/
+.reveal .slides section table td {
+  padding: 8px 12px !important; 
+  border-bottom: 1px solid #ddd !important;
+  text-align: left !important;
+}
+
+
+/*til at quote ting*/
+.pf-box {
+  font-size: 1.4em;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 30px auto;
+  padding: 25px 35px;
+  max-width: 900px;
+  background: #f5f7fa;
+  border-left: 6px solid #1f4e79;
+  border-radius: 8px;
+  text-align: left;
+}
+
+</style>
+```
