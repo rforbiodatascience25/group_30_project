@@ -55,7 +55,7 @@ low_range <- function(df, column, test_size) {
     arrange({{column}}) |>
     pull({{column}})
   mean_low_237 <- mean(df3[1:test_size], na.rm = TRUE)
-  return(list(mean_low_155, mean_low_237))
+  return(list(Project_155 = mean_low_155, Project_237 = mean_low_237))
 }
 
 high_range <- function(df, column, test_size) {
@@ -70,5 +70,5 @@ high_range <- function(df, column, test_size) {
     arrange(desc({{column}})) |>
     pull({{column}})
   mean_high_237 <- mean(df3[1:test_size], na.rm = TRUE)
-  return(list(mean_high_155, mean_high_237))
+  return(list(Project_155 = mean_high_155, Project_237 = mean_high_237))
 }

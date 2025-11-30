@@ -102,14 +102,14 @@ aug_data |>
   
 ```
 
-### Saa-result from all observation, patient repeats accepted
+### Saa-result from all observations, patient repeats accepted
 
 ```{r}
 result_distribution <- aug_data |>
   mutate(project = as.character(project)) |>
   ggplot(mapping = aes(x = project)) + 
   geom_bar(mapping = aes(fill = saa_result)) + 
-  scale_fill_manual(values = c("#94BFBE","#C03221","#627634"),
+  scale_fill_manual(values = c("#7A1F15","#da9283","#94BFBE"),
                     name = "Result",
                     guide = guide_legend(nrow = 1)) +
   theme_custom + 
