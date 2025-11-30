@@ -1,5 +1,5 @@
 ---
-title: "a-Synuclein Aggregates in Parkinson’s Disease"
+title: "α-Synuclein Aggregates in Parkinson’s Disease"
 
 subtitle: "SAA Analysis from PPMI Projects 155 & 237"
 
@@ -109,11 +109,13 @@ format:
 
 # Introduction
 
--   Presynaptic neuronal protein alpha-Synuclein
+-   Presynaptic neuronal protein α-Synuclein
 
 -   Aggregation between nerve cells -\> inhibition of transmission
 
 -   2 Projects using SAA (α-synuclein seed amplification assays)
+
+-   24h versus 150h
 
 <br>
 
@@ -182,13 +184,16 @@ Does one of the methods perform better than the other, and which is one more eff
 ::::: columns
 ::: {.column width="50%"}
 -   Two projects: 155 (150h) and 237 (24h)
--   1300 individuals, almost 1900 observations
 
 <br>
 
--   2 functions, overview of high/low values
+-   1300 individuals, almost 1900 observations
 
 <br> <br>
+
+-   2 functions, overview of high/low values
+
+<br> <br> <br>
 
 -   Frequency of instrument used
 :::
@@ -199,8 +204,6 @@ Does one of the methods perform better than the other, and which is one more eff
 ![](../results/04_instruments_used.png){width="600"}
 :::
 :::::
-
-# Results
 
 ## SAA quality check
 
