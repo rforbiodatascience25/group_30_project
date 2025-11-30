@@ -162,7 +162,7 @@ instruments_used <- aug_data |>
   geom_bar(mapping = aes(fill = instrument),
            position = "fill") + 
   scale_fill_manual(breaks = c("2","4","5","6","9","10"),
-                    values = c("#da9283","#3C3C68","#C03221","#627634","#7A1F15","#94BFBE"),
+                    values = c("#da9283","#7A1F15","#C03221","#94BFBE","#3C3C68","#627634"),
                     name = "Instrument",
                     guide = guide_legend(nrow = 1)) +
   theme_custom + 

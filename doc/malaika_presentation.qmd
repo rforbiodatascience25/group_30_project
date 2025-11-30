@@ -128,7 +128,7 @@ Does one of the methods perform better than the other, and which is one more eff
 
 -   3 replicates of SAA (cerebrospinal fluid)
 
--   The assay amplifies the protein and monitors the aggregation by measuring fluorescence intensity over time
+-   Monitors the aggregation by measuring fluorescence intensity over time
 
 -   Sigmoidal curve: fmax, auc, ttt
 
@@ -176,11 +176,15 @@ Does one of the methods perform better than the other, and which is one more eff
 
 -   Two projects: 155 (150h) and 237 (24h)
 
+![](../results/04_project_distribution.png){width="200"}
+
 -   1300 individuals, almost 1900 observations
 
 -   2 functions, overview of high/low values
 
 -   Frequency of instrument used
+
+![](../results/04_instruments_used.png){width="200"}
 
 # Results
 
