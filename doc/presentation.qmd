@@ -106,6 +106,7 @@ format:
 
 </style>
 ```
+
 # Introduction
 
 -   Presynaptic neuronal protein alpha-Synuclein
@@ -122,7 +123,7 @@ format:
 Does one of the methods perform better than the other, and which is one more efficient?
 :::
 
----
+------------------------------------------------------------------------
 
 ## Materials and Methods
 
