@@ -10,7 +10,7 @@ author:
   - name: "Andreas Nielsen"
 
 date: "2 December 2025"
-
+  
 format:
   revealjs: 
     theme: simple
@@ -19,13 +19,14 @@ format:
     scrollable: true
     transition: fade
     transition-speed: fast
-  
+
   html: 
     self-contained: true  # ingen _files-mapper
 ---
 
 ```{=html}
 <style>
+/* tekststørrelsen på teksten i slides */
 .reveal, .reveal .slides {
   font-size: 1.40rem !important;   
 }
@@ -105,8 +106,7 @@ format:
 
 </style>
 ```
-
-## Introduction
+# Introduction
 
 -   Presynaptic neuronal protein alpha-Synuclein
 
@@ -121,6 +121,8 @@ format:
 ::: pf-box
 Does one of the methods perform better than the other, and which is one more efficient?
 :::
+
+---
 
 ## Materials and Methods
 
