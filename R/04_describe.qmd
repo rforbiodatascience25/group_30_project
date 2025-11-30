@@ -75,6 +75,19 @@ patients_participants
 
 ```
 
+### Number of observations 
+
+1 observation is rep 1-3
+
+```{r}
+observations <- aug_data |>
+  group_by(clinical_event) |>
+  distinct(patient_number) |>
+  ungroup()|>
+  summarize(Observations = n())
+observations
+```
+
 ### Result of the SAA
 
 All patients enrolled was diagnosed with PD previously to SAA analysis. The result of the SAA does not follow the PD diagnosis completely. The number of saa-positive patients at their latest visit.
