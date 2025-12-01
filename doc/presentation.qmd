@@ -304,10 +304,6 @@ Question: Does the signal become stronger further into disease progression?
 
 -   Note: Days from baseline is a not actually a measure of disease progression...
 
-### Residual plot
-
-![](../results/08_fmax_over_time_resid.png)
-
 ### Subset of patients
 
 ![](../results/08_fmax_over_time_top12.png)

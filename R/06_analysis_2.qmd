@@ -79,7 +79,7 @@ We will look at the separation and overlap in fmax, when determining SAA result.
 We will look at how the ratio of negative, positive and inconclusive is
 
 ```{r}
-saa_result_dist <- aug_data |>
+aug_data |>
   ggplot(mapping = aes(x = project)) + 
   geom_bar(mapping = aes(fill = saa_result),
            position = "fill") + 
@@ -98,17 +98,12 @@ saa_result_dist <- aug_data |>
     scale_y_continuous(name = "Percentage", 
                        labels = scales::label_percent(accuracy = 1))
 
-ggsave(filename = "../results/06_saa_result_dist.png",
-       width = 10,  
-       height = 5)   
-
-saa_result_dist
 ```
 
 (very hard to figure out how to do the percent labels) **stacked plot with percent labels:**
 
 ```{r}
-saa_result_percent <- aug_data |> 
+saa_result_dist <- aug_data |> 
   group_by(project) |> 
   count(saa_result) |> 
   mutate(pct = prop.table(n)) |> 
@@ -124,7 +119,7 @@ saa_result_percent <- aug_data |>
             fill = "white",
             alpha = 0.8, 
             label.size = 0,
-            size = 3) + 
+            size = 4) + 
   
   scale_y_continuous(labels = scales::percent) +
   
@@ -139,11 +134,11 @@ saa_result_percent <- aug_data |>
        x = "Project",
        caption = "Source: PPMI (Parkinson's Progression Markers Initiative)")
   
-ggsave(filename = "../results/06_saa_result_percent.png",
+ggsave(filename = "../results/06_saa_result_dist.png",
        width = 10,  
-       height = 5)   
+       height = 7)   
 
-saa_result_percent
+saa_result_dist
 ```
 
 It seems to be very similar - not a very big difference in the ratio. Trying to see the separation:

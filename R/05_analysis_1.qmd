@@ -103,6 +103,9 @@ mismatches_saa_results |>
     names_to = "rep",
     values_to = "fmax"
   ) |>
+  
+  mutate(rep = factor(parse_number(rep))) |>
+
   ggplot(aes(x = rep,
              y = fmax,
              group = patient_number)) + 
@@ -146,6 +149,9 @@ mismatches_saa_results |>
     names_to = "rep",
     values_to = "fmax"
   ) |>
+  
+  mutate(rep = factor(parse_number(rep))) |>
+  
   ggplot(aes(x = rep,
              y = log2(fmax),
              group = patient_number)) + 
@@ -170,7 +176,7 @@ mismatches_saa_results |>
     title = "Mismatch cases: 155 negative vs our inconclusive (Log2)",
     subtitle = "7 mismatches (Reported as negative, by definition inconclusive)",
     x = "Replicate",
-    y = "log2 of Fmax (RFU)",
+    y = "Log2 of Fmax (RFU)",
     caption = "Source: PPMI (Parkinson's Progression Markers Initiative)"
   )
 
