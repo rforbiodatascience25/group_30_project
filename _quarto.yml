@@ -1,11 +1,10 @@
 project:
   title: "Group 30 Final Project"
+  type: default
+  post-render: cleanup.R
 
 format:
   html:
     self-contained: true  # indlejrer alle figurer, ingen _files-mapper
-
-commands:
-  post-render: cleanup.R
 
 editor: visual
