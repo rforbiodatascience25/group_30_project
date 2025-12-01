@@ -6,6 +6,6 @@ format:
     self-contained: true  # indlejrer alle figurer, ingen _files-mapper
 
 commands:
-  post-render: "cleanup.R"
+  post-render: cleanup.R
 
 editor: visual
