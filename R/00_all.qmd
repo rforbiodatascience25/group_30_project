@@ -5,7 +5,7 @@ format:
     self-contained: true  # ingen _files-mapper
 ---
 
-Please write quarto render r/00_all.qmd in the terminal to render all .qmd documents and generates a html that contains the full project. Make sure quatro is installed for this: <https://quarto.org/docs/get-started/>
+Please write quarto render R/00_all.qmd in the terminal to render all .qmd documents and generate a html that contains the full project. You can find the html file in the "results" folder.
 
 # 01_load
 
@@ -45,8 +45,4 @@ Please write quarto render r/00_all.qmd in the terminal to render all .qmd docum
 # 08_analysis_4
 
 ```{r, child="08_analysis_4.qmd"}
-```
-
-```{r}
-
 ```
